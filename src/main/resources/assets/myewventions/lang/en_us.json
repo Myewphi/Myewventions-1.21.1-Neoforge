@@ -1,13 +1,7 @@
 {
-  "itemGroup.myewventions": "Example Mod Tab",
-  "block.myewventions.example_block": "Example Block",
-  "item.myewventions.example_item": "Example Item",
+  "creativetab.myewventions_tab": "Myewventions",
 
-  "myewventions.configuration.title": "Myewventions Configs",
-  "myewventions.configuration.section.myewventions.common.toml": "Myewventions Configs",
-  "myewventions.configuration.section.myewventions.common.toml.title": "Myewventions Configs",
-  "myewventions.configuration.items": "Item List",
-  "myewventions.configuration.logDirtBlock": "Log Dirt Block",
-  "myewventions.configuration.magicNumberIntroduction": "Magic Number Text",
-  "myewventions.configuration.magicNumber": "Magic Number"
+  "item.myewventions.silver_ingot": "Silver Ingot",
+
+  "block.myewventions.silver_block": "Silver Block"
 }
