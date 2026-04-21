@@ -16,6 +16,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.SILVER_BLOCK);
+        blockWithItem(ModBlocks.FLESH_GEODE_CORE);
+        blockWithItem(ModBlocks.FLESH_GEODE_CRUST);
+        blockWithItem(ModBlocks.FLESH_GEODE_STEM);
+        blockWithItem(ModBlocks.FLESH_GEODE_MEAT);
     }
 
     private void blockWithItem(DeferredBlock<?> deferredBlock){

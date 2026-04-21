@@ -18,6 +18,10 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
         dropSelf(ModBlocks.SILVER_BLOCK.get());
+        dropSelf(ModBlocks.FLESH_GEODE_CORE.get());
+        dropSelf(ModBlocks.FLESH_GEODE_CRUST.get());
+        dropSelf(ModBlocks.FLESH_GEODE_MEAT.get());
+        dropSelf(ModBlocks.FLESH_GEODE_STEM.get());
     }
 
     @Override

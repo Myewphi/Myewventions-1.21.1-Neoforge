@@ -4,6 +4,7 @@ import myewphi.myewventions.block.ModBlocks;
 import myewphi.myewventions.item.ModCreativeModeTabs;
 import myewphi.myewventions.item.ModItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.slf4j.Logger;
@@ -71,6 +72,10 @@ public class Myewventions {
         livingEntity.level().setBlock(livingEntity.getOnPos(), Blocks.TNT.defaultBlockState(), 3);
         //how to grab and set attributes!!!
         livingEntity.getAttributes().getInstance(Attributes.MOVEMENT_SPEED).setBaseValue(10);
+    }
+
+    public static double distance(BlockPos pos2, BlockPos pos1){
+        return Math.sqrt((pos2.getX()-pos1.getX())^2 + (pos2.getY()-pos1.getY())^2 + (pos2.getZ()-pos1.getZ())^2);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
