@@ -37,7 +37,7 @@ public class Myewventions {
         ModBlocks.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
 
-        // Register ourselves for server and other game events we are interested in, requred if @SubscribeEvent functions are used in this class
+        // Register ourselves for server and other game events we are interested in, required if @SubscribeEvent functions are used in this class
         NeoForge.EVENT_BUS.register(this);
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -72,10 +72,6 @@ public class Myewventions {
         livingEntity.level().setBlock(livingEntity.getOnPos(), Blocks.TNT.defaultBlockState(), 3);
         //how to grab and set attributes!!!
         livingEntity.getAttributes().getInstance(Attributes.MOVEMENT_SPEED).setBaseValue(10);
-    }
-
-    public static double distance(BlockPos pos2, BlockPos pos1){
-        return Math.sqrt((pos2.getX()-pos1.getX())^2 + (pos2.getY()-pos1.getY())^2 + (pos2.getZ()-pos1.getZ())^2);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

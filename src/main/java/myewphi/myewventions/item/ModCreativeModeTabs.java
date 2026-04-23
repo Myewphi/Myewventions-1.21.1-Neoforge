@@ -22,6 +22,10 @@ public class ModCreativeModeTabs {
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModItems.SILVER_INGOT);
                         output.accept(ModBlocks.SILVER_BLOCK);
+                        output.accept(ModBlocks.FLESH_GEODE_CORE);
+                        output.accept(ModBlocks.FLESH_GEODE_CRUST);
+                        output.accept(ModBlocks.FLESH_GEODE_MEAT);
+                        output.accept(ModBlocks.FLESH_GEODE_STEM);
                     }).build());
 
     public static void register(IEventBus eventBus){

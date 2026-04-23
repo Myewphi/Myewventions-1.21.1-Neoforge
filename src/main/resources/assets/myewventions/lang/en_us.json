@@ -3,5 +3,10 @@
 
   "item.myewventions.silver_ingot": "Silver Ingot",
 
-  "block.myewventions.silver_block": "Silver Block"
+  "block.myewventions.silver_block": "Silver Block",
+  "block.myewventions.flesh_geode_core": "Flesh Geode Embryo",
+  "block.myewventions.flesh_geode_crust": "Flesh Geode Chitin",
+  "block.myewventions.flesh_geode_stem": "Flesh Geode Spreading Meat",
+  "block.myewventions.flesh_geode_meat": "Flesh Geode Meat",
+  "block.myewventions.flesh_geode_inner_meat": "Flesh Geode Meat"
 }

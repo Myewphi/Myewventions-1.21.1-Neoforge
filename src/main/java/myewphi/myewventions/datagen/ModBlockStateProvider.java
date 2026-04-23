@@ -20,6 +20,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(ModBlocks.FLESH_GEODE_CRUST);
         blockWithItem(ModBlocks.FLESH_GEODE_STEM);
         blockWithItem(ModBlocks.FLESH_GEODE_MEAT);
+        blockWithItem(ModBlocks.FLESH_GEODE_INNER_MEAT);
     }
 
     private void blockWithItem(DeferredBlock<?> deferredBlock){
