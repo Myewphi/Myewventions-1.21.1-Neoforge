@@ -1,5 +1,6 @@
 package myewphi.myewventions.block;
 
+import myewphi.myewventions.Myewtilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -16,7 +17,7 @@ public class FleshGeodeCoreBlock extends FleshGeodeBlock{
     @Override
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
-        level.setBlock(getRandomSide(pos), ModBlocks.FLESH_GEODE_STEM.get().defaultBlockState(), 3);
+        level.setBlock(Myewtilities.getRandomSide(pos), ModBlocks.FLESH_GEODE_STEM.get().defaultBlockState(), 3);
     }
 
     @Override

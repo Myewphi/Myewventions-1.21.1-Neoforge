@@ -25,7 +25,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.FLESH_GEODE_CORE);
                         output.accept(ModBlocks.FLESH_GEODE_CRUST);
                         output.accept(ModBlocks.FLESH_GEODE_MEAT);
+                        output.accept(ModBlocks.FLESH_GEODE_INNER_MEAT);
                         output.accept(ModBlocks.FLESH_GEODE_STEM);
+                        output.accept(ModBlocks.TOOTHY_SPIKES);
                     }).build());
 
     public static void register(IEventBus eventBus){

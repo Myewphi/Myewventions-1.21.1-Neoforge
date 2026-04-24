@@ -8,5 +8,8 @@
   "block.myewventions.flesh_geode_crust": "Flesh Geode Chitin",
   "block.myewventions.flesh_geode_stem": "Flesh Geode Spreading Meat",
   "block.myewventions.flesh_geode_meat": "Flesh Geode Meat",
-  "block.myewventions.flesh_geode_inner_meat": "Flesh Geode Meat"
+  "block.myewventions.flesh_geode_inner_meat": "Flesh Geode Meat",
+  "block.myewventions.toothy_spikes": "Toothy Spike",
+
+  "death.attack.flesh_geode": "%1$s was consumed"
 }

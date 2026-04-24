@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "myewventions:flesh_geode_meat"
+          "name": "myewventions:toothy_spikes"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "myewventions:blocks/flesh_geode_inner_meat"
+  "random_sequence": "myewventions:blocks/toothy_spikes"
 }

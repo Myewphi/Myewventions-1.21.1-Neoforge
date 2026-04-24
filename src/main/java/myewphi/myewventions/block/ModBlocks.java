@@ -19,16 +19,19 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> SILVER_BLOCK = registerBlock("silver_block",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
+
     public static final DeferredBlock<Block> FLESH_GEODE_CORE = registerBlock("flesh_geode_core",
             () -> new FleshGeodeCoreBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK).randomTicks()));
     public static final DeferredBlock<Block> FLESH_GEODE_STEM = registerBlock("flesh_geode_stem",
             () -> new FleshGeodeStemBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK).randomTicks()));
     public static final DeferredBlock<Block> FLESH_GEODE_MEAT = registerBlock("flesh_geode_meat",
-            () -> new FleshGeodeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK)));
+            () -> new FleshGeodeMeatBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK)));
     public static final DeferredBlock<Block> FLESH_GEODE_INNER_MEAT = registerBlock("flesh_geode_inner_meat",
             () -> new FleshGeodeInnerMeatBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK).randomTicks()));
     public static final DeferredBlock<Block> FLESH_GEODE_CRUST = registerBlock("flesh_geode_crust",
             () -> new FleshGeodeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK)));
+    public static final DeferredBlock<Block> TOOTHY_SPIKES = registerBlock("toothy_spikes",
+            () -> new ToothySpikesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BONE_BLOCK).noOcclusion().noCollission().offsetType(BlockBehaviour.OffsetType.XZ)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

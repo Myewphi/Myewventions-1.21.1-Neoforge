@@ -1,9 +1,12 @@
 package myewphi.myewventions.block;
 
+import myewphi.myewventions.Myewtilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Optional;
 
 public class FleshGeodeStemBlock extends FleshGeodeBlock {
@@ -12,12 +15,12 @@ public class FleshGeodeStemBlock extends FleshGeodeBlock {
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        int radius = 15;
+    protected void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        int radius = 30;
         Optional<BlockPos> core = BlockPos.findClosestMatch(pos, radius, radius, pos2 -> level.getBlockState(pos2).getBlock().equals(ModBlocks.FLESH_GEODE_CORE.get()));
         if(core.isPresent()){
-            double distanceToCore = getDistanceToCore(pos, core.get());
-            Optional<BlockPos> randomSide = getRandomSide(pos, blockPos -> !(level.getBlockState(blockPos).getBlock() instanceof FleshGeodeBlock));
+            double distanceToCore = pos.distToCenterSqr(core.get().getCenter());
+            Optional<BlockPos> randomSide = Myewtilities.getRandomSide(pos, blockPos -> !(level.getBlockState(blockPos).getBlock() instanceof FleshGeodeBlock));
             if(distanceToCore < radius * 3){
                 if(randomSide.isPresent()){
                     level.setBlock(randomSide.get(), ModBlocks.FLESH_GEODE_STEM.get().defaultBlockState(), 3);

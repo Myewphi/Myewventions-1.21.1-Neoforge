@@ -21,8 +21,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.FLESH_GEODE_CORE.get());
         dropSelf(ModBlocks.FLESH_GEODE_CRUST.get());
         dropSelf(ModBlocks.FLESH_GEODE_MEAT.get());
-        dropSelf(ModBlocks.FLESH_GEODE_INNER_MEAT.get());
+        dropOther(ModBlocks.FLESH_GEODE_INNER_MEAT.get(), ModBlocks.FLESH_GEODE_MEAT.get());
         dropSelf(ModBlocks.FLESH_GEODE_STEM.get());
+        dropSelf(ModBlocks.TOOTHY_SPIKES.get());
     }
 
     @Override
