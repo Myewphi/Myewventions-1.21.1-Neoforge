@@ -1,27 +1,20 @@
 package myewphi.myewventions;
 
-import com.google.common.collect.AbstractIterator;
-import myewphi.myewventions.block.FleshGeodeMeatBlock;
+import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
 import myewphi.myewventions.item.ModCreativeModeTabs;
 import myewphi.myewventions.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -38,12 +31,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.*;
 
 @Mod(Myewventions.MOD_ID)
 public class Myewventions {
@@ -69,26 +57,6 @@ public class Myewventions {
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-        // Some common setup code
-        /*
-        LOGGER.info("HELLO FROM COMMON SETUP");
-
-        if (Config.LOG_DIRT_BLOCK.getAsBoolean()) {
-            LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
-        }
-
-        LOGGER.info("{}{}", Config.MAGIC_NUMBER_INTRODUCTION.get(), Config.MAGIC_NUMBER.getAsInt());
-
-        Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
-        */
-    }
-
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
-    }
-
     @SubscribeEvent
     public void onConsume(LivingDeathEvent deathEvent){
         Level level = deathEvent.getEntity().level();
@@ -103,24 +71,42 @@ public class Myewventions {
                     }).isPresent());
 
             if(!nearbyMeat.isEmpty()) {
-                BlockPos pos =  nearbyMeat.get(Myewtilities.getRandomListElement(nearbyMeat.size()));
+                BlockPos pos =  Myewtilities.getRandomListElement(nearbyMeat);
                 ((FleshGeodeMeatBlock) level.getBlockState(pos).getBlock()).feedFleshGeodeBlock(deathEvent, pos);
             }
         }
     }
 
-    public void Examples(LivingEntity livingEntity){
-        //all Minecraft.getInstance() calls are client sided!!!
-        Minecraft.getInstance().player.sendSystemMessage(Component.literal("This message will display in chat without a sender!"));
-        //try to use entity.level() for server sidedness instead of Minecraft.getInstance().level() which is client side
-        livingEntity.level().setBlock(livingEntity.getOnPos(), Blocks.TNT.defaultBlockState(), 3);
-        //how to grab and set attributes!!!
-        livingEntity.getAttributes().getInstance(Attributes.MOVEMENT_SPEED).setBaseValue(10);
+    private void commonSetup(FMLCommonSetupEvent event) {
+        // Some common setup code
+        /*
+        LOGGER.info("HELLO FROM COMMON SETUP");
+
+        if (Config.LOG_DIRT_BLOCK.getAsBoolean()) {
+            LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
+        }
+
+        LOGGER.info("{}{}", Config.MAGIC_NUMBER_INTRODUCTION.get(), Config.MAGIC_NUMBER.getAsInt());
+
+        Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
+        */
     }
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+
+    }
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         // Do something when the server starts
         //LOGGER.info("HELLO from server starting");
     }
+    public void Examples(LivingEntity livingEntity){
+        //all Minecraft.getInstance() calls are client sided!!!
+        assert Minecraft.getInstance().player != null;
+        Minecraft.getInstance().player.sendSystemMessage(Component.literal("This message will display in chat without a sender!"));
+        //try to use entity.level() for server sidedness instead of Minecraft.getInstance().level() which is client side
+        livingEntity.level().setBlock(livingEntity.getOnPos(), Blocks.TNT.defaultBlockState(), 3);
+        //how to grab and set attributes!!!
+        Objects.requireNonNull(livingEntity.getAttributes().getInstance(Attributes.MOVEMENT_SPEED)).setBaseValue(10);
+    }
+
 }

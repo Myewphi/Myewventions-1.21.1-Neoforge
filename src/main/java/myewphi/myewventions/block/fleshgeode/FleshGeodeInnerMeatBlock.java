@@ -1,5 +1,6 @@
-package myewphi.myewventions.block;
+package myewphi.myewventions.block.fleshgeode;
 
+import myewphi.myewventions.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

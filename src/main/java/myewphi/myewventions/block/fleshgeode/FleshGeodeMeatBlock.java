@@ -1,5 +1,6 @@
-package myewphi.myewventions.block;
+package myewphi.myewventions.block.fleshgeode;
 
+import myewphi.myewventions.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;

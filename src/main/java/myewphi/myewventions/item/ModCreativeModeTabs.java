@@ -28,6 +28,11 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.FLESH_GEODE_INNER_MEAT);
                         output.accept(ModBlocks.FLESH_GEODE_STEM);
                         output.accept(ModBlocks.TOOTHY_SPIKES);
+                        output.accept(ModBlocks.ANCIENT_STONE);
+                        output.accept(ModBlocks.ANCIENT_STONE_FOSSIL);
+                        output.accept(ModItems.FOSSIL_PLACER);
+                        output.accept(ModItems.FOSSIL_FORK);
+                        output.accept(ModItems.CHISEL);
                     }).build());
 
     public static void register(IEventBus eventBus){

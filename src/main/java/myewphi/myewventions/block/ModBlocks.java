@@ -1,6 +1,7 @@
 package myewphi.myewventions.block;
 
 import myewphi.myewventions.Myewventions;
+import myewphi.myewventions.block.fleshgeode.*;
 import myewphi.myewventions.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -32,6 +33,11 @@ public class ModBlocks {
             () -> new FleshGeodeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK)));
     public static final DeferredBlock<Block> TOOTHY_SPIKES = registerBlock("toothy_spikes",
             () -> new ToothySpikesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BONE_BLOCK).noOcclusion().noCollission().offsetType(BlockBehaviour.OffsetType.XZ)));
+
+    public static final DeferredBlock<Block> ANCIENT_STONE = registerBlock("ancient_stone",
+            () -> new AncientStoneBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+    public static final DeferredBlock<Block> ANCIENT_STONE_FOSSIL = registerBlock("ancient_stone_fossil",
+            () -> new AncientStoneFossilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

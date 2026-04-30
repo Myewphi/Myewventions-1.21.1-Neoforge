@@ -1,4 +1,4 @@
-package myewphi.myewventions.block;
+package myewphi.myewventions.block.fleshgeode;
 
 import net.minecraft.world.level.block.Block;
 

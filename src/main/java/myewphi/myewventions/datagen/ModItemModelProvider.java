@@ -20,6 +20,10 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         basicItem(ModItems.SILVER_INGOT.get());
         basicItem(BuiltInRegistries.BLOCK.getKey(ModBlocks.TOOTHY_SPIKES.get()));
+
         handheldItem(ModItems.HUNGRY_FLESH_SWORD.get());
+        handheldItem(ModItems.FOSSIL_PLACER.get());
+        handheldItem(ModItems.FOSSIL_FORK.get());
+        handheldItem(ModItems.CHISEL.get());
     }
 }

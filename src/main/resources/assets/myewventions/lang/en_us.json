@@ -2,6 +2,9 @@
   "creativetab.myewventions_tab": "Myewventions",
 
   "item.myewventions.silver_ingot": "Silver Ingot",
+  "item.myewventions.fossil_placer": "Fossil Placer",
+  "item.myewventions.fossil_fork": "Fossil Fork",
+  "item.myewventions.chisel": "Chisel",
 
   "block.myewventions.silver_block": "Silver Block",
   "block.myewventions.flesh_geode_core": "Flesh Geode Embryo",
@@ -10,6 +13,8 @@
   "block.myewventions.flesh_geode_meat": "Flesh Geode Meat",
   "block.myewventions.flesh_geode_inner_meat": "Flesh Geode Meat",
   "block.myewventions.toothy_spikes": "Toothy Spike",
+  "block.myewventions.ancient_stone": "Ancient Stone",
+  "block.myewventions.ancient_stone_fossil": "Ancient Stone Fossil",
 
   "death.attack.flesh_geode": "%1$s was consumed"
 }

@@ -1,4 +1,4 @@
-package myewphi.myewventions.block;
+package myewphi.myewventions.block.fleshgeode;
 
 import myewphi.myewventions.Myewventions;
 import net.minecraft.core.BlockPos;
