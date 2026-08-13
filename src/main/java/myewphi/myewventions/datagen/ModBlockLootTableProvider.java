@@ -24,6 +24,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        dropSelf(ModBlocks.PEDESTAL_BLOCK.get());
+
         dropSelf(ModBlocks.SILVER_BLOCK.get());
 
         dropSelf(ModBlocks.FLESH_GEODE_CORE.get());

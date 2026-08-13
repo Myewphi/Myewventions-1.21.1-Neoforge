@@ -1,5 +1,6 @@
 package myewphi.myewventions;
 
+import myewphi.myewventions.block.blockentity.ModBlockEntities;
 import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
 import myewphi.myewventions.item.ModCreativeModeTabs;
@@ -47,6 +48,7 @@ public class Myewventions {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in, required if @SubscribeEvent functions are used in this class
