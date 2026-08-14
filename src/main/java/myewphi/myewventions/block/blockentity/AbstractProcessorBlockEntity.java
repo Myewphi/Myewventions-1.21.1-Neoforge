@@ -8,35 +8,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractProcessorBlockEntity extends BlockEntity {
 
     public AbstractProcessorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        UP_ITEM_HANDLER = new CubezItemHandler(0, UP_IO, Direction.UP, itemHandler);
-        DOWN_ITEM_HANDLER = new CubezItemHandler(0, DOWN_IO, Direction.DOWN, itemHandler);
     }
 
-    public final ItemStackHandler itemHandler = new ItemStackHandler(1) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-            if(!level.isClientSide()) {
-                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
-            }
-        }
-
-        @Override
-        protected int getStackLimit(int slot, ItemStack stack) {
-            return 1;
-        }
-    };
-
-    public final CubezItemHandler UP_ITEM_HANDLER;
-    public final CubezItemHandler DOWN_ITEM_HANDLER;
-
-    protected final String UP_IO = "none";
+    protected String UP_IO = "none";
     protected String UP_TYPE = "none";
     protected int[] UP_SLOTS = new int[]{0};
     protected String DOWN_IO = "none";
@@ -55,6 +37,37 @@ public abstract class AbstractProcessorBlockEntity extends BlockEntity {
     protected String WEST_TYPE = "none";
     protected int[] WEST_SLOTS = new int[]{0};
 
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        if(side != null){
+            switch(side){
+                case UP -> {
+                    return UP_ITEM_HANDLER;
+                }
+                case DOWN -> {
+                    return DOWN_ITEM_HANDLER;
+                }
+            }
+        }
+        return null;
+    }
+
+    public ItemStackHandler itemHandler = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if(!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        }
+
+        @Override
+        protected int getStackLimit(int slot, ItemStack stack) {
+            return 1;
+        }
+    };
+
+    public CubezItemHandler UP_ITEM_HANDLER = new CubezItemHandler(0, UP_IO, Direction.UP, itemHandler);
+    public CubezItemHandler DOWN_ITEM_HANDLER = new CubezItemHandler(0, DOWN_IO, Direction.DOWN, itemHandler);
 
     //Saving and loading
     @Override
