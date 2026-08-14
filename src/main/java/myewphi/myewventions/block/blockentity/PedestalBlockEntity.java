@@ -1,5 +1,8 @@
 package myewphi.myewventions.block.blockentity;
 
+import myewphi.myewventions.recipe.ModRecipes;
+import myewphi.myewventions.recipe.PedestalRecipe;
+import myewphi.myewventions.recipe.PedestalRecipeInput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -11,14 +14,16 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class PedestalBlockEntity extends BlockEntity implements Container {
     private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
-
-
 
     public PedestalBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.PEDESTAL_BE.get(), pos, blockState);
@@ -28,8 +33,32 @@ public class PedestalBlockEntity extends BlockEntity implements Container {
         //fix this
     }
 
+    //Crafting
+    public void tick(Level level, BlockPos blockPos, BlockState blockState) {
+        if(hasRecipe()) {
+            craftItem();
+        }
+    }
+    private Optional<RecipeHolder<PedestalRecipe>> getCurrentRecipe() {
+        return this.level.getRecipeManager()
+                .getRecipeFor(ModRecipes.PEDESTAL_TYPE.get(), new PedestalRecipeInput(this.getItem(0)), level);
+    }
+    private boolean hasRecipe() {
+        Optional<RecipeHolder<PedestalRecipe>> recipe = getCurrentRecipe();
+        if(recipe.isEmpty()) {
+            return false;
+        }
 
-    //Saving and loading stuff
+        return true;
+    }
+    private void craftItem() {
+        Optional<RecipeHolder<PedestalRecipe>> recipe = getCurrentRecipe();
+        ItemStack output = recipe.get().value().output();
+
+        setItem(0, output.copy());
+    }
+
+    //Saving and loading
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
@@ -55,20 +84,16 @@ public class PedestalBlockEntity extends BlockEntity implements Container {
     public int getMaxStackSize() {
         return 1;
     }
-
-
     @Override
     public int getContainerSize() {
         return this.items.size();
     }
-
     protected NonNullList<ItemStack> getItems() {
         return this.items;
     }
     protected void setItems(NonNullList<ItemStack> items) {
         this.items = items;
     }
-
     @Override
     public boolean isEmpty() {
         for (ItemStack itemstack : this.getItems()) {
@@ -79,12 +104,10 @@ public class PedestalBlockEntity extends BlockEntity implements Container {
 
         return true;
     }
-
     @Override
     public ItemStack getItem(int slot) {
         return this.getItems().get(slot);
     }
-
     @Override
     public ItemStack removeItem(int slot, int amount) {
         ItemStack itemstack = ContainerHelper.removeItem(this.getItems(), slot, amount);
@@ -94,24 +117,20 @@ public class PedestalBlockEntity extends BlockEntity implements Container {
 
         return itemstack;
     }
-
     @Override
     public ItemStack removeItemNoUpdate(int slot) {
         return ContainerHelper.takeItem(this.getItems(), slot);
     }
-
     @Override
     public void setItem(int slot, ItemStack stack) {
         this.getItems().set(slot, stack);
         stack.limitSize(this.getMaxStackSize(stack));
         this.setChanged();
     }
-
     @Override
     public boolean stillValid(Player player) {
         return Container.stillValidBlockEntity(this, player);
     }
-
     @Override
     public void clearContent() {
         this.getItems().clear();

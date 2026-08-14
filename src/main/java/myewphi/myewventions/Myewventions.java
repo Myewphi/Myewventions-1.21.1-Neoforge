@@ -5,6 +5,7 @@ import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
 import myewphi.myewventions.item.ModCreativeModeTabs;
 import myewphi.myewventions.item.ModItems;
+import myewphi.myewventions.recipe.ModRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -50,12 +51,10 @@ public class Myewventions {
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
-        // Register ourselves for server and other game events we are interested in, required if @SubscribeEvent functions are used in this class
         NeoForge.EVENT_BUS.register(this);
-        // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
