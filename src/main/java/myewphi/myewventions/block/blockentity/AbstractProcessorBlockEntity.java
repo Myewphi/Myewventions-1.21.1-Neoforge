@@ -3,27 +3,40 @@ package myewphi.myewventions.block.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.WorldlyContainer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandler;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
-public abstract class AbstractProcessorBlockEntity extends BlockEntity implements WorldlyContainer {
-    protected NonNullList<ItemStack> items = NonNullList.withSize(0, ItemStack.EMPTY);
-    protected NonNullList<Integer> heats = NonNullList.withSize(0, 0);
+public abstract class AbstractProcessorBlockEntity extends BlockEntity {
 
-    protected String UP_IO = "none";
+    public AbstractProcessorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+        super(type, pos, blockState);
+        UP_ITEM_HANDLER = new CubezItemHandler(0, UP_IO, Direction.UP, itemHandler);
+        DOWN_ITEM_HANDLER = new CubezItemHandler(0, DOWN_IO, Direction.DOWN, itemHandler);
+    }
+
+    public final ItemStackHandler itemHandler = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if(!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        }
+
+        @Override
+        protected int getStackLimit(int slot, ItemStack stack) {
+            return 1;
+        }
+    };
+
+    public final CubezItemHandler UP_ITEM_HANDLER;
+    public final CubezItemHandler DOWN_ITEM_HANDLER;
+
+    protected final String UP_IO = "none";
     protected String UP_TYPE = "none";
     protected int[] UP_SLOTS = new int[]{0};
     protected String DOWN_IO = "none";
@@ -42,32 +55,24 @@ public abstract class AbstractProcessorBlockEntity extends BlockEntity implement
     protected String WEST_TYPE = "none";
     protected int[] WEST_SLOTS = new int[]{0};
 
-    public AbstractProcessorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
-        super(type, pos, blockState);
-    }
 
     //Saving and loading
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        ContainerHelper.saveAllItems(tag, this.items, registries);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        pTag.put("inventory", itemHandler.serializeNBT(pRegistries));
+
+        super.saveAdditional(pTag, pRegistries);
     }
+
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, this.items, registries);
-    }
-    @Override
-    public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-    @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return saveWithoutMetadata(registries);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
+
+        itemHandler.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
     }
 
     //Container
+    /*
     @Override
     public int getMaxStackSize() {
         return 1;
@@ -212,4 +217,5 @@ public abstract class AbstractProcessorBlockEntity extends BlockEntity implement
             }
         }
     }
+     */
 }

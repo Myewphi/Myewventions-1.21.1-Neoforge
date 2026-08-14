@@ -1,5 +1,6 @@
 package myewphi.myewventions;
 
+import myewphi.myewventions.block.blockentity.HeaterBlockEntity;
 import myewphi.myewventions.block.blockentity.ModBlockEntities;
 import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
@@ -8,6 +9,7 @@ import myewphi.myewventions.item.ModItems;
 import myewphi.myewventions.recipe.ModRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +18,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import org.slf4j.Logger;
 
@@ -53,9 +57,18 @@ public class Myewventions {
         ModCreativeModeTabs.register(modEventBus);
         ModRecipes.register(modEventBus);
 
+        modEventBus.addListener(this::onRegisterCapabilities);
+
         NeoForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    private void onRegisterCapabilities(RegisterCapabilitiesEvent event){
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.HEATER_BE.get(),
+                HeaterBlockEntity::getItemHandler);
     }
 
     @SubscribeEvent
