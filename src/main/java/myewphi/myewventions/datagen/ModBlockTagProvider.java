@@ -21,6 +21,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.PEDESTAL_BLOCK.getKey())
                 .add(ModBlocks.HEATER_BLOCK.getKey())
+                .add(ModBlocks.CRUCIBLE_BLOCK.getKey())
                 .add(ModBlocks.SILVER_BLOCK.getKey())
                 .add(ModBlocks.ANCIENT_STONE.getKey());
         this.tag(BlockTags.NEEDS_STONE_TOOL)

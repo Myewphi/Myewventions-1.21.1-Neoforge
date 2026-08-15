@@ -1,18 +1,17 @@
-package myewphi.myewventions.block.blockentity;
+package myewphi.myewventions.capability;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemStackHandler;
 
-public class CubezSidedItemHandler implements IItemHandler, IItemHandlerModifiable {
-    public ItemStackHandler baseHandler;
+public class CubezSidedInventoryHandler implements IItemHandler, IItemHandlerModifiable {
+    public CubezInventoryHandler baseHandler;
     private final int[] SLOTS;
     private final String IO;
     private final Direction DIR;
 
-    public CubezSidedItemHandler(int[] slots, String io, Direction dir, ItemStackHandler itemHandler) {
+    public CubezSidedInventoryHandler(int[] slots, String io, Direction dir, CubezInventoryHandler itemHandler) {
         SLOTS = slots;
         IO = io;
         DIR = dir;
@@ -33,22 +32,18 @@ public class CubezSidedItemHandler implements IItemHandler, IItemHandlerModifiab
     public ItemStack getStackInSlot(int slot) {
         return baseHandler.getStackInSlot(slot);
     }
-
     @Override
     public int getSlotLimit(int slot) {
         return baseHandler.getSlotLimit(slot);
     }
-
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
         return baseHandler.isItemValid(slot, stack);
     }
-
     @Override
     public int getSlots() {
         return baseHandler.getSlots();
     }
-
     @Override
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         if(IO.equals("input") || IO.equals("both") && containsInt(slot, SLOTS)){
@@ -56,7 +51,6 @@ public class CubezSidedItemHandler implements IItemHandler, IItemHandlerModifiab
         }
         return stack;
     }
-
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if(IO.equals("output") || IO.equals("both") && containsInt(slot, SLOTS)){
@@ -64,7 +58,6 @@ public class CubezSidedItemHandler implements IItemHandler, IItemHandlerModifiab
         }
         return ItemStack.EMPTY;
     }
-
     boolean containsInt(int findInt, int[] intArray){
         for (int i : intArray) {
             if (i == findInt) {
@@ -73,7 +66,6 @@ public class CubezSidedItemHandler implements IItemHandler, IItemHandlerModifiab
         }
         return false;
     }
-
     @Override
     public void setStackInSlot(int slot, ItemStack stack) {
         baseHandler.setStackInSlot(slot, stack);

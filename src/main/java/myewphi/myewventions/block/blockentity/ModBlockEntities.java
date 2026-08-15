@@ -15,13 +15,6 @@ import java.util.function.Supplier;
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Myewventions.MOD_ID);
-    // Create the DeferredRegister for attachment types
-    private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Myewventions.MOD_ID);
-
-    // Serialization via INBTSerializable
-    private static final Supplier<AttachmentType<ItemStackHandler>> HANDLER = ATTACHMENT_TYPES.register(
-            "handler", () -> AttachmentType.serializable(() -> new ItemStackHandler(1)).build()
-    );
 
 
     public static final Supplier<BlockEntityType<PedestalBlockEntity>> PEDESTAL_BE =
@@ -32,10 +25,13 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("heater_be", () -> BlockEntityType.Builder.of(
                     HeaterBlockEntity::new, ModBlocks.HEATER_BLOCK.get()).build(null));
 
+    public static final Supplier<BlockEntityType<CrucibleBlockEntity>> CRUCIBLE_BE =
+            BLOCK_ENTITIES.register("crucible_be", () -> BlockEntityType.Builder.of(
+                    CrucibleBlockEntity::new, ModBlocks.CRUCIBLE_BLOCK.get()).build(null));
+
 
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
-        ATTACHMENT_TYPES.register(eventBus);
     }
 }

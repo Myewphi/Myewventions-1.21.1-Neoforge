@@ -1,9 +1,10 @@
-package myewphi.myewventions.block.blockentity;
+package myewphi.myewventions.capability;
 
+import myewphi.myewventions.Myewventions;
+import myewphi.myewventions.block.blockentity.IHeatHandler;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.Item;
@@ -123,29 +124,35 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
     public boolean isItemValid(int slot, ItemStack stack) {
         return true;
     }
-
     protected void validateSlotIndex(int slot) {
         if (slot < 0 || slot >= stacks.size())
             throw new RuntimeException("Slot " + slot + " not in valid range - [0," + stacks.size() + ")");
     }
-    protected void onLoad() {}
-    protected void onContentsChanged(int slot) {}
+
 
     //Heat
     @Override
     public int getHeatSlots() {
-        return 0;
+        return heats.size();
     }
     @Override
     public int getHeatInSlot(int slot) {
-        return 0;
+        return this.heats.get(slot);
     }
     @Override
     public int insertHeat(int slot, int heat, boolean simulate) {
-        return 0;
+        int overflow = 0;
+        heats.set(slot, heat + getHeatInSlot(slot));
+        if(getHeatInSlot(slot) > getHeatLimit(slot)){
+            overflow =  getHeatInSlot(slot) - getHeatLimit(slot);
+            heats.set(slot, getHeatLimit(slot));
+        }
+        onContentsChanged(0);
+        return overflow;
     }
     @Override
     public int extractHeat(int slot, int amount, boolean simulate) {
+        onContentsChanged(0);
         return 0;
     }
     @Override
@@ -156,6 +163,7 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
     //Saving and Loading
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        Myewventions.LOGGER.info("SHOULD SAVE");
         ListTag itemTagList = new ListTag();
         ListTag heatTagList = new ListTag();
 
@@ -171,6 +179,7 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
             CompoundTag heatTag = new CompoundTag();
             heatTag.putInt("Slot", i);
             heatTag.putInt("Heat", heats.get(i));
+            Myewventions.LOGGER.info("SAVING: " + heats.get(i));
             heatTagList.add(heatTag);
         }
 
@@ -181,9 +190,11 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
         nbt.putInt("HeatSize", heats.size());
         return nbt;
     }
-
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+        Myewventions.LOGGER.info("SHOULD LOAD");
+
+
         setSize(
                 nbt.contains("SolidSize", Tag.TAG_INT) ? nbt.getInt("SolidSize") : stacks.size(),
                 nbt.contains("HeatSize", Tag.TAG_INT) ? nbt.getInt("HeatSize") : heats.size());
@@ -205,10 +216,13 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
             int slot = heatTags.getInt("Slot");
 
             if (slot >= 0 && slot < heats.size()) {
+                Myewventions.LOGGER.info("LOADING: " + heatTags.getInt("Heat"));
                 heats.set(slot, heatTags.getInt("Heat"));
             }
         }
 
         onLoad();
     }
+    protected void onLoad() {}
+    protected void onContentsChanged(int slot) {}
 }
