@@ -6,22 +6,17 @@ import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemPipeBlock extends BaseEntityBlock {
+public class ItemPipeBlock extends AbstractProcessorBlock {
     public static final MapCodec<ItemPipeBlock> CODEC = simpleCodec(ItemPipeBlock::new);
 
     public ItemPipeBlock(Properties properties) {
         super(properties);
-    }
-    @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
     }
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
@@ -40,6 +35,6 @@ public class ItemPipeBlock extends BaseEntityBlock {
         }
 
         return createTickerHelper(blockEntityType, ModBlockEntities.ITEM_PIPE_BE.get(),
-                (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState));
+                (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState, blockEntity));
     }
 }
