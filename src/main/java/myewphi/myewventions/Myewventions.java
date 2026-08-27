@@ -1,15 +1,13 @@
 package myewphi.myewventions;
 
-import myewphi.myewventions.block.blockentity.HeaterBlockEntity;
-import myewphi.myewventions.block.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
+import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
-import myewphi.myewventions.item.ModCreativeModeTabs;
 import myewphi.myewventions.item.ModItems;
 import myewphi.myewventions.recipe.ModRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;

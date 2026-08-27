@@ -1,6 +1,4 @@
-package myewphi.myewventions.block.blockentity;
-
-import net.minecraft.world.item.ItemStack;
+package myewphi.myewventions.blockentity.cubezio;
 
 public interface IHeatHandler {
     int getHeatSlots();

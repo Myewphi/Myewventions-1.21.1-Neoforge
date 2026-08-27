@@ -1,8 +1,8 @@
-package myewphi.myewventions.block;
+package myewphi.myewventions.block.misc;
 
 import com.mojang.serialization.MapCodec;
-import myewphi.myewventions.block.blockentity.ModBlockEntities;
-import myewphi.myewventions.block.blockentity.PedestalBlockEntity;
+import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.misc.PedestalBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

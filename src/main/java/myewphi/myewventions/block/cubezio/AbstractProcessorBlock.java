@@ -1,10 +1,9 @@
-package myewphi.myewventions.block;
+package myewphi.myewventions.block.cubezio;
 
-import myewphi.myewventions.block.blockentity.AbstractProcessorBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.AbstractProcessorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -45,13 +44,13 @@ public abstract class AbstractProcessorBlock extends BaseEntityBlock {
                     player.sendSystemMessage(Component.literal("Processor").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true).withUnderlined(true)));
                     player.sendSystemMessage(Component.translatable(state.getBlock().getDescriptionId()));
                     player.sendSystemMessage(Component.literal("Items").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true).withUnderlined(true)));
-                    for(int i = 0; i < blockEntity.BASE_ITEM_HANDLER.getSlots(); i++){
-                        player.sendSystemMessage(Component.literal(blockEntity.BASE_ITEM_HANDLER.getStackInSlot(i).toString()));
+                    for(int i = 0; i < blockEntity.BASE_INVENTORY_HANDLER.getSlots(); i++){
+                        player.sendSystemMessage(Component.literal(blockEntity.BASE_INVENTORY_HANDLER.getStackInSlot(i).toString()));
                     }
 
                     player.sendSystemMessage(Component.literal("Heats").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true).withUnderlined(true)));
-                    for(int i = 0; i < blockEntity.BASE_ITEM_HANDLER.getHeatSlots(); i++){
-                        player.sendSystemMessage(Component.literal(String.valueOf(blockEntity.BASE_ITEM_HANDLER.getHeatInSlot(i))));
+                    for(int i = 0; i < blockEntity.BASE_INVENTORY_HANDLER.getHeatSlots(); i++){
+                        player.sendSystemMessage(Component.literal(String.valueOf(blockEntity.BASE_INVENTORY_HANDLER.getHeatInSlot(i))));
                     }
                 }
             }

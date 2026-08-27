@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "myewventions:block/pipe_blank",
+    "east": "myewventions:block/pipe_blank",
+    "north": "myewventions:block/pipe_blank",
+    "particle": "myewventions:block/pipe_blank",
+    "south": "myewventions:block/pipe_blank",
+    "up": "myewventions:block/pipe_blank",
+    "west": "myewventions:block/pipe_blank"
+  }
+}

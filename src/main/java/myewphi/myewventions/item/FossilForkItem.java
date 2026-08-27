@@ -1,7 +1,7 @@
 package myewphi.myewventions.item;
 
 import myewphi.myewventions.Myewtilities;
-import myewphi.myewventions.block.AncientStoneBlock;
+import myewphi.myewventions.block.misc.AncientStoneBlock;
 import myewphi.myewventions.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

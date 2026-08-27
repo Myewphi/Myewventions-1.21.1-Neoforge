@@ -1,7 +1,7 @@
-package myewphi.myewventions.item;
+package myewphi.myewventions;
 
-import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.ModBlocks;
+import myewphi.myewventions.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -20,14 +20,20 @@ public class ModCreativeModeTabs {
                     .icon(() -> new ItemStack(ModItems.SILVER_INGOT.get()))
                     .title(Component.translatable("creativetab.myewventions_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
+                        output.accept(ModBlocks.HEATER_BLOCK);
+                        output.accept(ModBlocks.CRUCIBLE_BLOCK);
+                        output.accept(ModBlocks.ITEM_PIPE);
+
                         output.accept(ModItems.SILVER_INGOT);
                         output.accept(ModBlocks.SILVER_BLOCK);
+
                         output.accept(ModBlocks.FLESH_GEODE_CORE);
                         output.accept(ModBlocks.FLESH_GEODE_CRUST);
                         output.accept(ModBlocks.FLESH_GEODE_MEAT);
                         output.accept(ModBlocks.FLESH_GEODE_INNER_MEAT);
                         output.accept(ModBlocks.FLESH_GEODE_STEM);
                         output.accept(ModBlocks.TOOTHY_SPIKES);
+
                         output.accept(ModBlocks.ANCIENT_STONE);
                         output.accept(ModBlocks.ANCIENT_STONE_FOSSIL);
                         output.accept(ModItems.FOSSIL_PLACER);

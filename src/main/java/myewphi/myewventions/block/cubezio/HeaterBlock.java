@@ -1,8 +1,8 @@
-package myewphi.myewventions.block;
+package myewphi.myewventions.block.cubezio;
 
 import com.mojang.serialization.MapCodec;
-import myewphi.myewventions.block.blockentity.HeaterBlockEntity;
-import myewphi.myewventions.block.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
+import myewphi.myewventions.blockentity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 public class HeaterBlock extends AbstractProcessorBlock {
     public static final MapCodec<HeaterBlock> CODEC = simpleCodec(HeaterBlock::new);
 
-    protected HeaterBlock(Properties properties) {
+    public HeaterBlock(Properties properties) {
         super(properties);
     }
     @Override

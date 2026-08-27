@@ -1,0 +1,7 @@
+{
+  "type": "myewventions:heater",
+  "ingredient": {
+    "item" : "minecraft:coal"
+  },
+  "heat": 200
+}

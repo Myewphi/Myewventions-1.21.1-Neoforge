@@ -1,7 +1,7 @@
 package myewphi.myewventions.capability;
 
 import myewphi.myewventions.Myewventions;
-import myewphi.myewventions.block.blockentity.IHeatHandler;
+import myewphi.myewventions.blockentity.cubezio.IHeatHandler;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -163,7 +163,6 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
     //Saving and Loading
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        Myewventions.LOGGER.info("SHOULD SAVE");
         ListTag itemTagList = new ListTag();
         ListTag heatTagList = new ListTag();
 
@@ -179,7 +178,6 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
             CompoundTag heatTag = new CompoundTag();
             heatTag.putInt("Slot", i);
             heatTag.putInt("Heat", heats.get(i));
-            Myewventions.LOGGER.info("SAVING: " + heats.get(i));
             heatTagList.add(heatTag);
         }
 
@@ -192,9 +190,6 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
     }
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        Myewventions.LOGGER.info("SHOULD LOAD");
-
-
         setSize(
                 nbt.contains("SolidSize", Tag.TAG_INT) ? nbt.getInt("SolidSize") : stacks.size(),
                 nbt.contains("HeatSize", Tag.TAG_INT) ? nbt.getInt("HeatSize") : heats.size());

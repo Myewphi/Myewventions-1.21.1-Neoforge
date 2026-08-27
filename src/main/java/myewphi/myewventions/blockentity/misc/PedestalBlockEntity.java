@@ -1,5 +1,6 @@
-package myewphi.myewventions.block.blockentity;
+package myewphi.myewventions.blockentity.misc;
 
+import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.recipe.ModRecipes;
 import myewphi.myewventions.recipe.PedestalRecipe;
 import myewphi.myewventions.recipe.PedestalRecipeInput;

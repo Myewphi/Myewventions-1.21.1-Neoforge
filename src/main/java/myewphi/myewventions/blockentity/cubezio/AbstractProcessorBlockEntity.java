@@ -1,4 +1,4 @@
-package myewphi.myewventions.block.blockentity;
+package myewphi.myewventions.blockentity.cubezio;
 
 import myewphi.myewventions.capability.CubezInventoryHandler;
 import myewphi.myewventions.capability.CubezSidedInventoryHandler;
@@ -21,7 +21,7 @@ public abstract class AbstractProcessorBlockEntity extends BlockEntity {
     }
 
     //Item Handlers
-    protected CubezInventoryHandler baseItemHandler(int solidSize, int heatSize){
+    protected CubezInventoryHandler baseInventoryHandler(int solidSize, int heatSize){
         return new CubezInventoryHandler(solidSize, heatSize) {
             @Override
             protected void onContentsChanged(int slot) {
@@ -43,41 +43,41 @@ public abstract class AbstractProcessorBlockEntity extends BlockEntity {
         };
     }
 
-    protected CubezSidedInventoryHandler sidedItemHandler(int[] slots, String io, Direction dir) {
-        return new CubezSidedInventoryHandler(slots, io, dir, BASE_ITEM_HANDLER);
+    protected CubezSidedInventoryHandler sidedInventoryHandler(int[] slots, String io, Direction dir) {
+        return new CubezSidedInventoryHandler(slots, io, dir, BASE_INVENTORY_HANDLER);
     }
-    protected CubezSidedInventoryHandler sidedItemHandler(int[] slots, Direction dir) {
-        return sidedItemHandler(slots, "both", dir);
+    protected CubezSidedInventoryHandler sidedInventoryHandler(int[] slots, Direction dir) {
+        return sidedInventoryHandler(slots, "both", dir);
     }
 
-    public CubezInventoryHandler BASE_ITEM_HANDLER = baseItemHandler(0, 0);
-    public CubezSidedInventoryHandler UP_ITEM_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.UP, BASE_ITEM_HANDLER);
-    public CubezSidedInventoryHandler DOWN_ITEM_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.DOWN, BASE_ITEM_HANDLER);
-    public CubezSidedInventoryHandler NORTH_ITEM_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.NORTH, BASE_ITEM_HANDLER);
-    public CubezSidedInventoryHandler EAST_ITEM_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.EAST, BASE_ITEM_HANDLER);
-    public CubezSidedInventoryHandler SOUTH_ITEM_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.SOUTH, BASE_ITEM_HANDLER);
-    public CubezSidedInventoryHandler WEST_ITEM_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.WEST, BASE_ITEM_HANDLER);
+    public CubezInventoryHandler BASE_INVENTORY_HANDLER = baseInventoryHandler(0, 0);
+    public CubezSidedInventoryHandler UP_INVENTORY_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.UP, BASE_INVENTORY_HANDLER);
+    public CubezSidedInventoryHandler DOWN_INVENTORY_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.DOWN, BASE_INVENTORY_HANDLER);
+    public CubezSidedInventoryHandler NORTH_INVENTORY_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.NORTH, BASE_INVENTORY_HANDLER);
+    public CubezSidedInventoryHandler EAST_INVENTORY_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.EAST, BASE_INVENTORY_HANDLER);
+    public CubezSidedInventoryHandler SOUTH_INVENTORY_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.SOUTH, BASE_INVENTORY_HANDLER);
+    public CubezSidedInventoryHandler WEST_INVENTORY_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.WEST, BASE_INVENTORY_HANDLER);
 
     public IItemHandler getItemHandler(@Nullable Direction side) {
         if(side != null){
             switch(side){
                 case UP -> {
-                    return UP_ITEM_HANDLER;
+                    return UP_INVENTORY_HANDLER;
                 }
                 case DOWN -> {
-                    return DOWN_ITEM_HANDLER;
+                    return DOWN_INVENTORY_HANDLER;
                 }
                 case NORTH -> {
-                    return NORTH_ITEM_HANDLER;
+                    return NORTH_INVENTORY_HANDLER;
                 }
                 case EAST -> {
-                    return EAST_ITEM_HANDLER;
+                    return EAST_INVENTORY_HANDLER;
                 }
                 case SOUTH -> {
-                    return SOUTH_ITEM_HANDLER;
+                    return SOUTH_INVENTORY_HANDLER;
                 }
                 case WEST -> {
-                    return WEST_ITEM_HANDLER;
+                    return WEST_INVENTORY_HANDLER;
                 }
 
             }
@@ -86,9 +86,9 @@ public abstract class AbstractProcessorBlockEntity extends BlockEntity {
     }
 
     public void dropContents(Level level, BlockPos pos){
-        for(int i = 0; i < BASE_ITEM_HANDLER.getSlots(); i++){
-            if(!BASE_ITEM_HANDLER.getStackInSlot(i).isEmpty()){
-                level.addFreshEntity(new ItemEntity(level, pos.getCenter().x, pos.getCenter().y, pos.getCenter().z, BASE_ITEM_HANDLER.getStackInSlot(i)));
+        for(int i = 0; i < BASE_INVENTORY_HANDLER.getSlots(); i++){
+            if(!BASE_INVENTORY_HANDLER.getStackInSlot(i).isEmpty()){
+                level.addFreshEntity(new ItemEntity(level, pos.getCenter().x, pos.getCenter().y, pos.getCenter().z, BASE_INVENTORY_HANDLER.getStackInSlot(i)));
             }
         }
     }
@@ -96,7 +96,7 @@ public abstract class AbstractProcessorBlockEntity extends BlockEntity {
     //Saving and loading
     @Override
     protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.put("inventory", BASE_ITEM_HANDLER.serializeNBT(pRegistries));
+        pTag.put("inventory", BASE_INVENTORY_HANDLER.serializeNBT(pRegistries));
 
         super.saveAdditional(pTag, pRegistries);
     }
@@ -104,6 +104,6 @@ public abstract class AbstractProcessorBlockEntity extends BlockEntity {
     protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
 
-        BASE_ITEM_HANDLER.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
+        BASE_INVENTORY_HANDLER.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
     }
 }

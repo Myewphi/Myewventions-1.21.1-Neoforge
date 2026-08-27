@@ -24,6 +24,16 @@ public class ModRecipes {
                 }
             });
 
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<HeaterRecipe>> HEATER_SERIALIZER =
+            SERIALIZERS.register("heater", HeaterRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeType<?>, RecipeType<HeaterRecipe>> HEATER_TYPE =
+            TYPES.register("heater", () -> new RecipeType<HeaterRecipe>() {
+                @Override
+                public String toString() {
+                    return "heater";
+                }
+            });
+
 
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);
