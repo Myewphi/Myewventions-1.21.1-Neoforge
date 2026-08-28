@@ -1,7 +1,74 @@
 {
-  "variants": {
-    "": {
-      "model": "myewventions:block/item_pipe"
+  "multipart": [
+    {
+      "apply": {
+        "model": "myewventions:block/item_pipe_center"
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/item_pipe_input",
+        "uvlock": true
+      },
+      "when": {
+        "input_facing": "north",
+        "has_input": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/item_pipe_input",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "input_facing": "east",
+        "has_input": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/item_pipe_input",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "input_facing": "south",
+        "has_input": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/item_pipe_input",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "input_facing": "west",
+        "has_input": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/item_pipe_input",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "input_facing": "up",
+        "has_input": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/item_pipe_input",
+        "uvlock": true,
+        "x": 90
+      },
+      "when": {
+        "input_facing": "down",
+        "has_input": "true"
+      }
     }
-  }
+  ]
 }

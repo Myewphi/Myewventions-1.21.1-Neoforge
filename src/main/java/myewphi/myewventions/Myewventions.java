@@ -1,9 +1,11 @@
 package myewphi.myewventions;
 
+import myewphi.myewventions.blockentity.cubezio.CrucibleBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
+import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
 import myewphi.myewventions.item.ModItems;
 import myewphi.myewventions.recipe.ModRecipes;
 import net.minecraft.client.Minecraft;
@@ -66,6 +68,14 @@ public class Myewventions {
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.HEATER_BE.get(),
                 HeaterBlockEntity::getItemHandler);
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.CRUCIBLE_BE.get(),
+                CrucibleBlockEntity::getItemHandler);
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.ITEM_PIPE_BE.get(),
+                ItemPipeBlockEntity::getItemHandler);
     }
 
     @SubscribeEvent

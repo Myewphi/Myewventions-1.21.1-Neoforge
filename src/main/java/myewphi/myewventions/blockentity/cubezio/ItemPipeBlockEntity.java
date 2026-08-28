@@ -27,7 +27,8 @@ public class ItemPipeBlockEntity extends AbstractProcessorBlockEntity {
         blockEntity.cooldownTime--;
         if (!blockEntity.isOnCooldown()) {
             blockEntity.setCooldown(0);
-            moveItems(level, pos, blockState, blockEntity);
+            tryPushItems(level, pos);
+            tryPullItems(level, pos);
         }
     }
     public void setCooldown(int cooldownTime) {
@@ -41,6 +42,14 @@ public class ItemPipeBlockEntity extends AbstractProcessorBlockEntity {
     private boolean tryPushItems(Level level, BlockPos pos){
         if(BASE_INVENTORY_HANDLER.getStackInSlot(0).isEmpty()){
             return false;
+        }
+
+        IItemHandler topItemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.above(), Direction.DOWN);
+
+        int insertSlot = getInsertSlot(topItemHandler, BASE_INVENTORY_HANDLER.getStackInSlot(0));
+        if(insertSlot >= 0){
+            topItemHandler.insertItem(insertSlot, BASE_INVENTORY_HANDLER.extractItem(0, 1, false), false);
+            setCooldown(8);
         }
 
         return false;
@@ -61,21 +70,6 @@ public class ItemPipeBlockEntity extends AbstractProcessorBlockEntity {
         }
 
         return false;
-    }
-
-    private void moveItems(Level level, BlockPos pos, BlockState blockState, ItemPipeBlockEntity blockEntity){
-        IItemHandler topItemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.above(), Direction.DOWN);
-        IItemHandler bottomItemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.below(), Direction.UP);
-
-        int extractSlot = getExtractSlot(bottomItemHandler);
-        if(extractSlot >= 0){
-            ItemStack fakeStack = bottomItemHandler.extractItem(extractSlot, 1, true);
-            int insertSlot = getInsertSlot(topItemHandler, fakeStack);
-            if(insertSlot >= 0){
-                topItemHandler.insertItem(insertSlot, bottomItemHandler.extractItem(extractSlot, 1, false), false);
-                setCooldown(8);
-            }
-        }
     }
 
     int getInsertSlot(IItemHandler itemHandler, ItemStack stack){
@@ -100,5 +94,4 @@ public class ItemPipeBlockEntity extends AbstractProcessorBlockEntity {
         }
         return -1;
     }
-
 }
