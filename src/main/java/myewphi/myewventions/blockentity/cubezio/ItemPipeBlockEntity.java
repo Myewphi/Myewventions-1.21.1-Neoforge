@@ -56,7 +56,6 @@ public class ItemPipeBlockEntity extends AbstractProcessorBlockEntity {
     }
     private boolean tryPullItems(Level level, BlockPos pos){
         if(!BASE_INVENTORY_HANDLER.getStackInSlot(0).isEmpty()){
-            //cant pull in new item if pipe is full so don't try
             return false;
         }
 
