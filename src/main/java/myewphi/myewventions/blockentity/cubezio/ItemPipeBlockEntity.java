@@ -1,5 +1,6 @@
 package myewphi.myewventions.blockentity.cubezio;
 
+import myewphi.myewventions.block.cubezio.ItemPipeBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,6 +19,10 @@ public class ItemPipeBlockEntity extends AbstractProcessorBlockEntity {
         BASE_INVENTORY_HANDLER = baseInventoryHandler(1, 0);
         UP_INVENTORY_HANDLER = sidedInventoryHandler(new int[]{0}, Direction.UP);
         DOWN_INVENTORY_HANDLER = sidedInventoryHandler(new int[]{0}, Direction.DOWN);
+        NORTH_INVENTORY_HANDLER = sidedInventoryHandler(new int[]{0}, Direction.NORTH);
+        EAST_INVENTORY_HANDLER = sidedInventoryHandler(new int[]{0}, Direction.EAST);
+        SOUTH_INVENTORY_HANDLER = sidedInventoryHandler(new int[]{0}, Direction.SOUTH);
+        WEST_INVENTORY_HANDLER = sidedInventoryHandler(new int[]{0}, Direction.WEST);
     }
 
     public void tick(Level level, BlockPos pos, BlockState blockState, ItemPipeBlockEntity blockEntity) {
@@ -43,12 +48,16 @@ public class ItemPipeBlockEntity extends AbstractProcessorBlockEntity {
         if(BASE_INVENTORY_HANDLER.getStackInSlot(0).isEmpty()){
             return false;
         }
+        BlockState state = level.getBlockState(pos);
+        if(state.getValue(ItemPipeBlock.HAS_OUTPUT).equals(Boolean.FALSE)){
+            return false;
+        }
+        Direction outputDir = state.getValue(ItemPipeBlock.OUTPUT_FACE);
+        IItemHandler outputItemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.relative(outputDir), outputDir.getOpposite());
 
-        IItemHandler topItemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.above(), Direction.DOWN);
-
-        int insertSlot = getInsertSlot(topItemHandler, BASE_INVENTORY_HANDLER.getStackInSlot(0));
+        int insertSlot = getInsertSlot(outputItemHandler, BASE_INVENTORY_HANDLER.getStackInSlot(0));
         if(insertSlot >= 0){
-            topItemHandler.insertItem(insertSlot, BASE_INVENTORY_HANDLER.extractItem(0, 1, false), false);
+            outputItemHandler.insertItem(insertSlot, BASE_INVENTORY_HANDLER.extractItem(0, 1, false), false);
             setCooldown(8);
         }
 
@@ -58,12 +67,16 @@ public class ItemPipeBlockEntity extends AbstractProcessorBlockEntity {
         if(!BASE_INVENTORY_HANDLER.getStackInSlot(0).isEmpty()){
             return false;
         }
+        BlockState state = level.getBlockState(pos);
+        if(state.getValue(ItemPipeBlock.HAS_INPUT).equals(Boolean.FALSE)){
+            return false;
+        }
+        Direction inputDir = state.getValue(ItemPipeBlock.INPUT_FACE);
+        IItemHandler inputItemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.relative(inputDir), inputDir.getOpposite());
 
-        IItemHandler bottomItemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.below(), Direction.UP);
-
-        int extractSlot = getExtractSlot(bottomItemHandler);
+        int extractSlot = getExtractSlot(inputItemHandler);
         if(extractSlot >= 0){
-            BASE_INVENTORY_HANDLER.insertItem(0, bottomItemHandler.extractItem(extractSlot, 1, false), false);
+            BASE_INVENTORY_HANDLER.insertItem(0, inputItemHandler.extractItem(extractSlot, 1, false), false);
             setCooldown(8);
             return true;
         }

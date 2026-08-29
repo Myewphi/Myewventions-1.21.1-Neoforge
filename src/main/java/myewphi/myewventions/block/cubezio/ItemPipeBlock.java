@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -54,49 +53,59 @@ public class ItemPipeBlock extends AbstractProcessorBlock {
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return getPipeShape(defaultBlockState(), context.getLevel(), context.getClickedPos());
-    }
+        //Create all valid connections
+        boolean hasInput = false;
+        boolean hasOutput = false;
+        Direction inputDir = Direction.UP;
+        Direction outputDir = Direction.UP;
 
-    @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-        return getPipeShape(state, (Level) level, pos);
-    }
+        //look for valid pipe inputs
+        for(Direction dir : Direction.values()){
+            BlockState neighborState = context.getLevel().getBlockState(context.getClickedPos().relative(dir));
 
-    private BlockState getPipeShape(BlockState state, Level level, BlockPos pos){
-        boolean hasInput = state.getValue(ItemPipeBlock.HAS_INPUT);
-        boolean hasOutput = state.getValue(ItemPipeBlock.HAS_OUTPUT);
-        Direction inputDir = state.getValue(ItemPipeBlock.INPUT_FACE);
-        Direction outputDir = state.getValue(ItemPipeBlock.OUTPUT_FACE);
-
-        //get input facing
-        if(hasInput){
-            if(!isValidPipeOrContainer(level, pos, inputDir, HAS_INPUT, INPUT_FACE, HAS_OUTPUT, OUTPUT_FACE)){
-                hasInput = false;
+            if(isValidPipeInput(neighborState, dir)){
+                hasInput = true;
+                inputDir = dir;
+                break;
             }
         }
-        else {
-            for(Direction dir : Direction.values()){
-                if(isValidPipe(level, pos, dir, HAS_INPUT, INPUT_FACE, HAS_OUTPUT, OUTPUT_FACE)){
-                    inputDir = dir;
-                    hasInput = true;
-                    break;
-                }
+
+        //look for valid pipe outputs
+        for(Direction dir : Direction.values()){
+            BlockState neighborState = context.getLevel().getBlockState(context.getClickedPos().relative(dir));
+
+            if(hasInput && inputDir.equals(dir)){
+                //we cannot have an input and output going to the same face, so if there is already an input facing this direction, do not connect
+                continue;
+            }
+            if(isValidPipeOutput(neighborState, dir)){
+                hasOutput = true;
+                outputDir = dir;
+                break;
             }
         }
-        //get output facing
-        if(hasOutput){
-            if(!isValidPipeOrContainer(level, pos, outputDir, HAS_OUTPUT, OUTPUT_FACE, HAS_INPUT, INPUT_FACE)){
-                hasOutput = false;
+
+        //look for valid container connections
+        for(Direction dir : Direction.values()){
+            BlockState neighborState = context.getLevel().getBlockState(context.getClickedPos().relative(dir));
+            if(neighborState.getBlock() instanceof ItemPipeBlock){
+                continue;
             }
-        }
-        else {
-            for(Direction dir : Direction.values()){
-                if(!inputDir.equals(dir)){
-                    if(isValidPipe(level, pos, dir, HAS_OUTPUT, OUTPUT_FACE, HAS_INPUT, INPUT_FACE)){
-                        outputDir = dir;
-                        hasOutput = true;
-                        break;
+            if(context.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, context.getClickedPos().relative(dir), dir.getOpposite()) instanceof IItemHandler){
+                if(!hasInput){
+                    if(hasOutput && outputDir.equals(dir)){
+                        continue;
                     }
+                    hasInput = true;
+                    inputDir = dir;
+                    continue;
+                }
+                if(!hasOutput){
+                    if(inputDir.equals(dir)){
+                        continue;
+                    }
+                    hasOutput = true;
+                    outputDir = dir;
                 }
             }
         }
@@ -107,28 +116,124 @@ public class ItemPipeBlock extends AbstractProcessorBlock {
                 .setValue(OUTPUT_FACE, outputDir)
                 .setValue(HAS_OUTPUT, hasOutput);
     }
+    @Override
+    protected BlockState updateShape(BlockState state, Direction dir, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        //check if neighbor side is still valid and update if not
+        boolean hasInput = state.getValue(ItemPipeBlock.HAS_INPUT);
+        boolean hasOutput = state.getValue(ItemPipeBlock.HAS_OUTPUT);
+        Direction inputDir = state.getValue(ItemPipeBlock.INPUT_FACE);
+        Direction outputDir = state.getValue(ItemPipeBlock.OUTPUT_FACE);
 
-    boolean isValidPipeOrContainer(Level level, BlockPos pos, Direction dir, BooleanProperty hasSame, DirectionProperty sameFace, BooleanProperty hasOther, DirectionProperty otherFace){
-        return isValidPipe(level, pos, dir, hasSame, sameFace, hasOther, otherFace) || isContainer(level, pos, dir);
-    }
-    boolean isValidPipe(Level level, BlockPos pos, Direction dir, BooleanProperty hasSame, DirectionProperty sameFace, BooleanProperty hasOther, DirectionProperty otherFace){
-        BlockState state = level.getBlockState(pos.relative(dir));
-        if(state.getBlock() instanceof ItemPipeBlock){
-            if(state.getValue(hasSame).equals(Boolean.TRUE) && state.getValue(sameFace).equals(dir.getOpposite())){
-                return false;
+        //item pipe
+        if(neighborState.getBlock() instanceof ItemPipeBlock){
+            //pipe input
+            if(!hasInput){
+                if(isValidPipeInput(neighborState, dir)){
+                    //if we don't have an input side yet but the new neighbor is a valid input, we can connect
+                    hasInput = true;
+                    inputDir = dir;
+                }
             }
-            if(state.getValue(hasOther).equals(Boolean.TRUE) && !state.getValue(otherFace).equals(dir.getOpposite())){
-                return false;
+            else{
+                if(inputDir.equals(dir) && !isValidPipeInput(neighborState, dir)){
+                    //if we already had an input side but that side is no longer valid, we must disconnect
+                    hasInput = false;
+                }
             }
-            return true;
+
+            //pipe output
+            if(!hasOutput){
+                if(isValidPipeOutput(neighborState, dir)){
+                    //if we don't have an input side yet but the new neighbor is a valid input, we can connect
+                    hasOutput = true;
+                    outputDir = dir;
+                }
+            }
+            else{
+                if(outputDir.equals(dir) && !isValidPipeOutput(neighborState, dir)){
+                    //if we already had an input side but that side is no longer valid, we must disconnect
+                    hasOutput = false;
+                }
+            }
         }
-        return false;
+
+        //other container
+        else if(((Level) level).getCapability(Capabilities.ItemHandler.BLOCK, pos.relative(dir), dir.getOpposite()) instanceof IItemHandler){
+            if(!hasInput){
+                if(!(hasOutput && outputDir.equals(dir))){
+                    hasInput = true;
+                    inputDir = dir;
+                }
+            }
+            if(!hasOutput){
+                if(!inputDir.equals(dir)){
+                    hasOutput = true;
+                    outputDir = dir;
+                }
+            }
+        }
+
+        else {
+            if(hasInput && inputDir.equals(dir)){
+                hasInput = false;
+            }
+            if(hasOutput && outputDir.equals(dir)){
+                hasOutput = false;
+            }
+        }
+
+        return defaultBlockState()
+                .setValue(INPUT_FACE, inputDir)
+                .setValue(HAS_INPUT, hasInput)
+                .setValue(OUTPUT_FACE, outputDir)
+                .setValue(HAS_OUTPUT, hasOutput);
     }
-    boolean isContainer(Level level, BlockPos pos, Direction dir){
-        if(level.getCapability(Capabilities.ItemHandler.BLOCK, pos.relative(dir), dir.getOpposite()) instanceof IItemHandler ){
-            return true;
+
+    boolean hasOpposingInput(BlockState state, Direction dir){
+        return hasOpposingIO(state, dir, state.getValue(HAS_INPUT), state.getValue(INPUT_FACE));
+    }
+    boolean hasOpposingOutput(BlockState state, Direction dir){
+        return hasOpposingIO(state, dir, state.getValue(HAS_OUTPUT), state.getValue(OUTPUT_FACE));
+    }
+    boolean hasOpposingIO(BlockState state, Direction dir, Boolean hasIO, Direction ioFace){
+        if(!hasIO){
+            //if there is no IO, then there cant be an opposing IO
+            return false;
         }
-        return false;
+        if(!ioFace.equals(dir.getOpposite())){
+            //if the IO facing is not facing towards us then it is not opposing
+            //dir.getOpposite() is getting whatever is the opposite side to the direction it is from us
+            //so if the block is to the north of us, the side facing us would be the south side of that block
+            return false;
+        }
+        return true;
+    }
+
+    boolean isValidPipeInput(BlockState neighborState, Direction dir){
+        if(!(neighborState.getBlock() instanceof ItemPipeBlock)){
+            //move on if not an item pipe
+            return false;
+        }
+        return isValidPipeIO(neighborState.getValue(HAS_INPUT), hasOpposingInput(neighborState, dir), neighborState.getValue(HAS_OUTPUT), hasOpposingOutput(neighborState, dir));
+    }
+    boolean isValidPipeOutput(BlockState neighborState, Direction dir){
+        if(!(neighborState.getBlock() instanceof ItemPipeBlock)){
+            //move on if not an item pipe
+            return false;
+        }
+        return isValidPipeIO(neighborState.getValue(HAS_OUTPUT), hasOpposingOutput(neighborState, dir), neighborState.getValue(HAS_INPUT), hasOpposingInput(neighborState, dir));
+    }
+    boolean isValidPipeIO(Boolean hasSameIO, Boolean hasOpposingSameIO, Boolean hasOppositeIO, Boolean hasOpposingOppositeIO){
+        if(hasOpposingSameIO){
+            //two outputs cannot connect so if the neighbor has an output facing towards us, we do not want to connect
+            return false;
+        }
+        if(hasOppositeIO && !hasOpposingOppositeIO){
+            //neighbor cannot have two inputs, so if it already has an input and its not facing us, we do not want to connect
+            return false;
+        }
+        //if none of the above statements were true, then we can connect!
+        return true;
     }
 
     @Override
