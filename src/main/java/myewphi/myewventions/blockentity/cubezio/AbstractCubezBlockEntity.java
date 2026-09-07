@@ -14,9 +14,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractProcessorBlockEntity extends BlockEntity {
+public abstract class AbstractCubezBlockEntity extends BlockEntity {
 
-    public AbstractProcessorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+    public AbstractCubezBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
     }
 

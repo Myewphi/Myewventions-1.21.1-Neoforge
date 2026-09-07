@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
-public class ItemPipeBlockEntity extends AbstractProcessorBlockEntity {
+public class ItemPipeBlockEntity extends AbstractCubezBlockEntity {
     int cooldownTime = -1;
 
     public ItemPipeBlockEntity(BlockPos pos, BlockState blockState) {

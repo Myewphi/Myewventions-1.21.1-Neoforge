@@ -1,12 +1,12 @@
 package myewphi.myewventions.block.cubezio;
 
 import com.mojang.serialization.MapCodec;
-import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -18,11 +18,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemPipeBlock extends AbstractProcessorBlock {
+public class ItemPipeBlock extends AbstractCubezBlock {
+    private static final VoxelShape NORTH = Block.box(2, 2, 0, 14, 14, 2);
+    private static final VoxelShape EAST = Block.box(14, 2, 2, 16, 14, 14);
+    private static final VoxelShape SOUTH = Block.box(2, 2, 14, 14, 14, 16);
+    private static final VoxelShape WEST = Block.box(0, 2, 2, 2, 14, 14);
+    private static final VoxelShape UP = Block.box(2, 14, 2, 14, 16, 14);
+    private static final VoxelShape DOWN = Block.box(2, 0, 2, 14, 2, 14);
+
     public static final MapCodec<ItemPipeBlock> CODEC = simpleCodec(ItemPipeBlock::new);
     public static final DirectionProperty INPUT_FACE = DirectionProperty.create("input_facing", Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.UP, Direction.DOWN);
     public static final BooleanProperty HAS_INPUT = BooleanProperty.create("has_input");
@@ -43,6 +53,32 @@ public class ItemPipeBlock extends AbstractProcessorBlock {
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        VoxelShape base = Block.box(2, 2, 2, 14, 14, 14);
+        if(state.getValue(HAS_INPUT).equals(Boolean.TRUE)){
+            switch(state.getValue(INPUT_FACE)){
+                case Direction.NORTH -> base = Shapes.or(base, NORTH);
+                case Direction.EAST -> base = Shapes.or(base, EAST);
+                case Direction.SOUTH -> base = Shapes.or(base, SOUTH);
+                case Direction.WEST -> base = Shapes.or(base, WEST);
+                case Direction.UP -> base = Shapes.or(base, UP);
+                case Direction.DOWN -> base = Shapes.or(base, DOWN);
+            }
+        }
+        if(state.getValue(HAS_OUTPUT).equals(Boolean.TRUE)){
+            switch(state.getValue(OUTPUT_FACE)){
+                case Direction.NORTH -> base = Shapes.or(base, NORTH);
+                case Direction.EAST -> base = Shapes.or(base, EAST);
+                case Direction.SOUTH -> base = Shapes.or(base, SOUTH);
+                case Direction.WEST -> base = Shapes.or(base, WEST);
+                case Direction.UP -> base = Shapes.or(base, UP);
+                case Direction.DOWN -> base = Shapes.or(base, DOWN);
+            }
+        }
+        return base;
     }
 
     @Override

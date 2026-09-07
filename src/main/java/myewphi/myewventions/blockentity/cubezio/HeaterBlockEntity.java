@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Optional;
 
 
-public class HeaterBlockEntity extends AbstractProcessorBlockEntity {
+public class HeaterBlockEntity extends AbstractCubezBlockEntity {
     private int heatBuffer = 0;
 
     public HeaterBlockEntity(BlockPos pos, BlockState blockState) {

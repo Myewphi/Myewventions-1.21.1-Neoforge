@@ -1,6 +1,6 @@
 package myewphi.myewventions.block.cubezio;
 
-import myewphi.myewventions.blockentity.cubezio.AbstractProcessorBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.AbstractCubezBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -13,9 +13,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 
-public abstract class AbstractProcessorBlock extends BaseEntityBlock {
+public abstract class AbstractCubezBlock extends BaseEntityBlock {
 
-    protected AbstractProcessorBlock(Properties properties) {
+    protected AbstractCubezBlock(Properties properties) {
         super(properties);
     }
     @Override
@@ -26,7 +26,7 @@ public abstract class AbstractProcessorBlock extends BaseEntityBlock {
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if(state.getBlock() != newState.getBlock()){
-            if(level.getBlockEntity(pos) instanceof AbstractProcessorBlockEntity blockEntity){
+            if(level.getBlockEntity(pos) instanceof AbstractCubezBlockEntity blockEntity){
                 if(blockEntity.getBlockState().getBlock() == this){
                     blockEntity.dropContents(level, pos);
                     level.updateNeighbourForOutputSignal(pos, this);
@@ -39,7 +39,7 @@ public abstract class AbstractProcessorBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if(!level.isClientSide()){
-            if(level.getBlockEntity(pos) instanceof AbstractProcessorBlockEntity blockEntity){
+            if(level.getBlockEntity(pos) instanceof AbstractCubezBlockEntity blockEntity){
                 if(blockEntity.getBlockState().getBlock() == this){
                     player.sendSystemMessage(Component.literal("Processor").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true).withUnderlined(true)));
                     player.sendSystemMessage(Component.translatable(state.getBlock().getDescriptionId()));

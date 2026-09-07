@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class HeaterBlock extends AbstractProcessorBlock {
+public class HeaterBlock extends AbstractCubezBlock {
     public static final MapCodec<HeaterBlock> CODEC = simpleCodec(HeaterBlock::new);
 
     public HeaterBlock(Properties properties) {

@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class CrucibleBlock extends AbstractProcessorBlock {
+public class CrucibleBlock extends AbstractCubezBlock {
     public static final MapCodec<CrucibleBlock> CODEC = simpleCodec(CrucibleBlock::new);
 
     public CrucibleBlock(Properties properties) {
