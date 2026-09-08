@@ -1,7 +1,7 @@
 package myewphi.myewventions.block;
 
 import myewphi.myewventions.Myewventions;
-import myewphi.myewventions.block.cubezio.CrucibleBlock;
+import myewphi.myewventions.block.cubezio.OvenBlock;
 import myewphi.myewventions.block.cubezio.HeatPipeBlock;
 import myewphi.myewventions.block.cubezio.HeaterBlock;
 import myewphi.myewventions.block.cubezio.ItemPipeBlock;
@@ -27,10 +27,10 @@ public class ModBlocks {
             () -> new PedestalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
     public static final DeferredBlock<Block> HEATER_BLOCK = registerBlock("heater_block",
             () -> new HeaterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
-    public static final DeferredBlock<Block> CRUCIBLE_BLOCK = registerBlock("crucible_block",
-            () -> new CrucibleBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
+    public static final DeferredBlock<Block> OVEN_BLOCK = registerBlock("oven_block",
+            () -> new OvenBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
     public static final DeferredBlock<Block> ITEM_PIPE = registerBlock("item_pipe",
-            () -> new ItemPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion(), 1));
+            () -> new ItemPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion(), 2));
     public static final DeferredBlock<Block> HEAT_PIPE = registerBlock("heat_pipe",
             () -> new HeatPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion(), 16));
 

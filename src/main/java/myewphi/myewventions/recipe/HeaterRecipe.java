@@ -51,7 +51,6 @@ public record HeaterRecipe(Ingredient inputItem, int output) implements Recipe<H
     public RecipeSerializer<?> getSerializer() {
         return ModRecipes.HEATER_SERIALIZER.get();
     }
-
     @Override
     public RecipeType<?> getType() {
         return ModRecipes.HEATER_TYPE.get();

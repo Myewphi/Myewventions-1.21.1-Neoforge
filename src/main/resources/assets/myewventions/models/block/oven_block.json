@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "down": "myewventions:block/machine_heat_input",
+    "down": "myewventions:block/machine_blank",
     "east": "myewventions:block/machine_blank",
     "north": "myewventions:block/machine_solid_input",
     "particle": "myewventions:block/machine_blank",
     "south": "myewventions:block/machine_solid_output",
-    "up": "myewventions:block/machine_blank",
+    "up": "myewventions:block/machine_heat_input",
     "west": "myewventions:block/machine_blank"
   }
 }

@@ -1,6 +1,6 @@
 package myewphi.myewventions;
 
-import myewphi.myewventions.blockentity.cubezio.CrucibleBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.OvenBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.HeatPipeBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
 import myewphi.myewventions.blockentity.ModBlockEntities;
@@ -77,8 +77,8 @@ public class Myewventions {
                 HeaterBlockEntity::getItemHandler);
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
-                ModBlockEntities.CRUCIBLE_BE.get(),
-                CrucibleBlockEntity::getItemHandler);
+                ModBlockEntities.OVEN_BE.get(),
+                OvenBlockEntity::getItemHandler);
 
         //Heat
         event.registerBlockEntity(
@@ -89,6 +89,10 @@ public class Myewventions {
                 ModCapabilities.HeatHandler.BLOCK,
                 ModBlockEntities.HEATER_BE.get(),
                 HeaterBlockEntity::getHeatHandler);
+        event.registerBlockEntity(
+                ModCapabilities.HeatHandler.BLOCK,
+                ModBlockEntities.OVEN_BE.get(),
+                OvenBlockEntity::getHeatHandler);
     }
 
     @SubscribeEvent

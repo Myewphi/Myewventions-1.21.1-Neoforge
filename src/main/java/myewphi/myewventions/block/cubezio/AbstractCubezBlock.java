@@ -1,13 +1,12 @@
 package myewphi.myewventions.block.cubezio;
 
 import myewphi.myewventions.blockentity.cubezio.AbstractCubezBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.DeprecatedAbstractCubezBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -50,8 +49,29 @@ public abstract class AbstractCubezBlock extends BaseEntityBlock {
         }
         return super.useWithoutItem(state, level, pos, player, hitResult);
     }
-    protected void sayMachineInfo(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, BlockEntity blockEntity){}
+    protected void sayMachineInfo(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, BlockEntity blockEntity){
+        sayMachineInfoDivider(player);
+    }
     protected void sayMachineInfoLine(Player player, String title, String info){
-        player.sendSystemMessage(Component.literal(title + ": " + info));
+        player.sendSystemMessage(
+                Component.translatable(title + ": ").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true))
+                .append(Component.translatable(info).setStyle(Style.EMPTY.withColor(0xffffff).withBold(false))));
+    }
+    protected void sayMachineInfoLine(Player player, String title, ItemStack stack){
+        if(stack.isEmpty()){
+            player.sendSystemMessage(
+                    Component.translatable(title + ": ").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true))
+                            .append(Component.literal("Empty").setStyle(Style.EMPTY.withColor(0xffffff).withBold(false))));
+        }
+        else {
+            player.sendSystemMessage(
+                    Component.translatable(title + ": ").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true))
+                            .append(Component.translatable(stack.getDescriptionId()).setStyle(Style.EMPTY.withColor(0xffffff).withBold(false)))
+                                    .append(Component.literal(" x" + stack.getCount()).setStyle(Style.EMPTY.withColor(0xffffff).withBold(false))));
+        }
+    }
+    protected void sayMachineInfoDivider(Player player){
+        player.sendSystemMessage(
+                Component.translatable(" "));
     }
 }

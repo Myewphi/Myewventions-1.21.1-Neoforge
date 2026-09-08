@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "myewventions:block/oven_block"
+    }
+  }
+}

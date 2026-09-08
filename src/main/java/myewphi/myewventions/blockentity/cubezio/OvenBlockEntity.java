@@ -11,16 +11,28 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
+public class OvenBlockEntity extends AbstractCubezBlockEntity {
+    public ItemStackHandler INPUT = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if(!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        }
 
-public class HeaterBlockEntity extends AbstractCubezBlockEntity {
-    public ItemStackHandler FUEL = new ItemStackHandler(1) {
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+    };
+    public ItemStackHandler OUTPUT = new ItemStackHandler(1) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -45,18 +57,19 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
 
         @Override
         public int getHeatLimit(int slot) {
-            return 500;
+            return 200;
         }
     };
-    private int heatBuffer = 0;
+    public int PROGRESS = 0;
 
-    public HeaterBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntities.HEATER_BE.get(), pos, blockState);
+    public OvenBlockEntity(BlockPos pos, BlockState blockState) {
+        super(ModBlockEntities.OVEN_BE.get(), pos, blockState);
     }
 
     @Override
     public void dropAllContents(Level level, BlockPos pos) {
-        dropContents(level, pos, FUEL);
+        dropContents(level, pos, INPUT);
+        dropContents(level, pos, OUTPUT);
     }
 
     @Override
@@ -66,7 +79,10 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
         }
 
         if (side.equals(Direction.NORTH)) {
-            return FUEL;
+            return INPUT;
+        }
+        if(side.equals(Direction.SOUTH)){
+            return OUTPUT;
         }
 
         return null;
@@ -86,30 +102,38 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
 
     //Crafting
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        if(heatBuffer > 0){
-            HEAT.insertHeat(0, 2, false);
+        if(HEAT.getHeatInSlot(0) == 0){
+            return;
         }
-        else {
-            Optional<RecipeHolder<HeaterRecipe>> recipe = getCurrentRecipe();
 
-            if(!recipe.isEmpty()) {
-                heatBuffer = recipe.get().value().output();
-                FUEL.extractItem(0, 1, false);
-            }
+        Optional<RecipeHolder<OvenRecipe>> recipe = getCurrentRecipe();
+        if(recipe.isEmpty()){
+            PROGRESS = 0;
+            return;
         }
-        //Heat dissipates from buffer even if it has nowhere to go
-        heatBuffer -= 2;
+
+        if(!OUTPUT.insertItem(0, recipe.get().value().result(), true).isEmpty()){
+            return;
+        }
+
+        PROGRESS += HEAT.extractHeat(0, 1, false);
+        if(PROGRESS >= recipe.get().value().heat()){
+            INPUT.extractItem(0, recipe.get().value().inputItemCount(), false);
+            OUTPUT.insertItem(0, recipe.get().value().result().copy(), false);
+        }
     }
-    private Optional<RecipeHolder<HeaterRecipe>> getCurrentRecipe() {
+    private Optional<RecipeHolder<OvenRecipe>> getCurrentRecipe() {
         return this.level.getRecipeManager()
-                .getRecipeFor(ModRecipes.HEATER_TYPE.get(), new HeaterRecipeInput(this.FUEL.getStackInSlot(0)), level);
+                .getRecipeFor(ModRecipes.OVEN_TYPE.get(), new OvenRecipeInput(this.INPUT.getStackInSlot(0)), level);
     }
 
     //Saving and loading
     @Override
     protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.put("fuel", FUEL.serializeNBT(pRegistries));
+        pTag.put("input", INPUT.serializeNBT(pRegistries));
+        pTag.put("output", OUTPUT.serializeNBT(pRegistries));
         pTag.put("heat", HEAT.serializeNBT(pRegistries));
+        pTag.putInt("progress", PROGRESS);
 
         super.saveAdditional(pTag, pRegistries);
     }
@@ -117,7 +141,9 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
     protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
 
-        FUEL.deserializeNBT(pRegistries, pTag.getCompound("fuel"));
+        INPUT.deserializeNBT(pRegistries, pTag.getCompound("input"));
+        OUTPUT.deserializeNBT(pRegistries, pTag.getCompound("output"));
         HEAT.deserializeNBT(pRegistries, pTag.getCompound("heat"));
+        PROGRESS = pTag.getInt("progress");
     }
 }

@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "myewventions:crucible_block"
+          "name": "myewventions:oven_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "myewventions:blocks/crucible_block"
+  "random_sequence": "myewventions:blocks/oven_block"
 }

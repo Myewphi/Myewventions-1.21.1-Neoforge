@@ -1,7 +1,5 @@
 package myewphi.myewventions.block.cubezio;
 
-import myewphi.myewventions.Myewventions;
-import myewphi.myewventions.blockentity.cubezio.AbstractPipeBlockEntity;
 import myewphi.myewventions.capability.IHeatHandler;
 import myewphi.myewventions.capability.ModCapabilities;
 import net.minecraft.core.BlockPos;
@@ -126,6 +124,26 @@ public abstract class AbstractPipeBlock extends AbstractCubezBlock {
                 continue;
             }
             if(canConnectToContainer(context.getLevel(), context.getClickedPos().relative(dir), dir.getOpposite())){
+                if(context.getPlayer() != null){
+                    if(context.getPlayer().isCrouching()){
+                        if(!hasOutput){
+                            if(inputDir.equals(dir)){
+                                continue;
+                            }
+                            hasOutput = true;
+                            outputDir = dir;
+                        }
+                        if(!hasInput){
+                            if(hasOutput && outputDir.equals(dir)){
+                                continue;
+                            }
+                            hasInput = true;
+                            inputDir = dir;
+                            continue;
+                        }
+                        continue;
+                    }
+                }
                 if(!hasInput){
                     if(hasOutput && outputDir.equals(dir)){
                         continue;

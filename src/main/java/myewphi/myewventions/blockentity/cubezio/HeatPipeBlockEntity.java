@@ -7,6 +7,8 @@ import myewphi.myewventions.capability.IHeatHandler;
 import myewphi.myewventions.capability.ModCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -162,5 +164,21 @@ public class HeatPipeBlockEntity extends AbstractCubezBlockEntity{
     }
     protected boolean isOnCooldown() {
         return this.cooldownTime > 0;
+    }
+
+    //Saving and loading
+    @Override
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        pTag.put("inv", INV.serializeNBT(pRegistries));
+        pTag.putInt("speed", HEAT_LIMIT);
+
+        super.saveAdditional(pTag, pRegistries);
+    }
+    @Override
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
+
+        INV.deserializeNBT(pRegistries, pTag.getCompound("inv"));
+        HEAT_LIMIT = pTag.getInt("speed");
     }
 }

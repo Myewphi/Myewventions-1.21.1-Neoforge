@@ -52,9 +52,11 @@ public class ItemPipeBlock extends AbstractPipeBlock {
 
     @Override
     protected void sayMachineInfo(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, BlockEntity blockEntity) {
+        super.sayMachineInfo(state, level, pos, player, hitResult, blockEntity);
+
         ItemPipeBlockEntity itemPipeBlockEntity = (ItemPipeBlockEntity) blockEntity;
 
         sayMachineInfoLine(player, "Pipe", state.getBlock().getDescriptionId());
-        sayMachineInfoLine(player, "Item", (itemPipeBlockEntity.INV.getStackInSlot(0).toString()));
+        sayMachineInfoLine(player, "Item", itemPipeBlockEntity.INV.getStackInSlot(0));
     }
 }

@@ -2,7 +2,7 @@ package myewphi.myewventions.blockentity;
 
 import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.ModBlocks;
-import myewphi.myewventions.blockentity.cubezio.CrucibleBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.OvenBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.HeatPipeBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
@@ -27,9 +27,9 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("heater_be", () -> BlockEntityType.Builder.of(
                     HeaterBlockEntity::new, ModBlocks.HEATER_BLOCK.get()).build(null));
 
-    public static final Supplier<BlockEntityType<CrucibleBlockEntity>> CRUCIBLE_BE =
-            BLOCK_ENTITIES.register("crucible_be", () -> BlockEntityType.Builder.of(
-                    CrucibleBlockEntity::new, ModBlocks.CRUCIBLE_BLOCK.get()).build(null));
+    public static final Supplier<BlockEntityType<OvenBlockEntity>> OVEN_BE =
+            BLOCK_ENTITIES.register("oven_be", () -> BlockEntityType.Builder.of(
+                    OvenBlockEntity::new, ModBlocks.OVEN_BLOCK.get()).build(null));
 
     public static final Supplier<BlockEntityType<ItemPipeBlockEntity>> ITEM_PIPE_BE =
             BLOCK_ENTITIES.register("item_pipe_be", () -> BlockEntityType.Builder.of(

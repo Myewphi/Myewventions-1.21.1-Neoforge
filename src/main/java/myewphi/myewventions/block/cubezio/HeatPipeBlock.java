@@ -3,7 +3,6 @@ package myewphi.myewventions.block.cubezio;
 import com.mojang.serialization.MapCodec;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.blockentity.cubezio.HeatPipeBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -54,6 +53,8 @@ public class HeatPipeBlock extends AbstractPipeBlock{
     }
 
     protected void sayMachineInfo(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, BlockEntity blockEntity) {
+        super.sayMachineInfo(state, level, pos, player, hitResult, blockEntity);
+
         HeatPipeBlockEntity heatPipeBlockEntity = (HeatPipeBlockEntity) blockEntity;
 
         sayMachineInfoLine(player, "Pipe", state.getBlock().getDescriptionId());

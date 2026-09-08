@@ -34,6 +34,16 @@ public class ModRecipes {
                 }
             });
 
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<OvenRecipe>> OVEN_SERIALIZER =
+            SERIALIZERS.register("oven", OvenRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeType<?>, RecipeType<OvenRecipe>> OVEN_TYPE =
+            TYPES.register("oven", () -> new RecipeType<OvenRecipe>() {
+                @Override
+                public String toString() {
+                    return "oven";
+                }
+            });
+
 
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);

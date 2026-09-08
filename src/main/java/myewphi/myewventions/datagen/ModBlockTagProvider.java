@@ -22,7 +22,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.PEDESTAL_BLOCK.getKey())
 
                 .add(ModBlocks.HEATER_BLOCK.getKey())
-                .add(ModBlocks.CRUCIBLE_BLOCK.getKey())
+                .add(ModBlocks.OVEN_BLOCK.getKey())
                 .add(ModBlocks.ITEM_PIPE.getKey())
                 .add(ModBlocks.HEAT_PIPE.getKey())
 

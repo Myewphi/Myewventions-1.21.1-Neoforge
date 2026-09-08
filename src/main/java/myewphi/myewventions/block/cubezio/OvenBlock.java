@@ -1,8 +1,9 @@
 package myewphi.myewventions.block.cubezio;
 
 import com.mojang.serialization.MapCodec;
-import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
 import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.OvenBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -14,10 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class HeaterBlock extends AbstractCubezBlock {
-    public static final MapCodec<HeaterBlock> CODEC = simpleCodec(HeaterBlock::new);
+public class OvenBlock extends AbstractCubezBlock {
+    public static final MapCodec<OvenBlock> CODEC = simpleCodec(OvenBlock::new);
 
-    public HeaterBlock(Properties properties) {
+    public OvenBlock(Properties properties) {
         super(properties);
     }
     @Override
@@ -26,7 +27,7 @@ public class HeaterBlock extends AbstractCubezBlock {
     }
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new HeaterBlockEntity(pos, state);
+        return new OvenBlockEntity(pos, state);
     }
 
     @Nullable
@@ -36,7 +37,7 @@ public class HeaterBlock extends AbstractCubezBlock {
             return null;
         }
 
-        return createTickerHelper(blockEntityType, ModBlockEntities.HEATER_BE.get(),
+        return createTickerHelper(blockEntityType, ModBlockEntities.OVEN_BE.get(),
                 (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState));
     }
 
@@ -44,10 +45,12 @@ public class HeaterBlock extends AbstractCubezBlock {
     protected void sayMachineInfo(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, BlockEntity blockEntity) {
         super.sayMachineInfo(state, level, pos, player, hitResult, blockEntity);
 
-        HeaterBlockEntity heaterBlockEntity = (HeaterBlockEntity) blockEntity;
+        OvenBlockEntity ovenBlockEntity = (OvenBlockEntity) blockEntity;
 
         sayMachineInfoLine(player, "Processor", state.getBlock().getDescriptionId());
-        sayMachineInfoLine(player, "Fuel", heaterBlockEntity.FUEL.getStackInSlot(0));
-        sayMachineInfoLine(player, "Heat", String.valueOf((heaterBlockEntity.HEAT.getHeatInSlot(0))));
+        sayMachineInfoLine(player, "Input", ovenBlockEntity.INPUT.getStackInSlot(0));
+        sayMachineInfoLine(player, "Output", ovenBlockEntity.OUTPUT.getStackInSlot(0));
+        sayMachineInfoLine(player, "Heat", String.valueOf((ovenBlockEntity.HEAT.getHeatInSlot(0))));
+        sayMachineInfoLine(player, "Progress", String.valueOf(ovenBlockEntity.PROGRESS));
     }
 }
