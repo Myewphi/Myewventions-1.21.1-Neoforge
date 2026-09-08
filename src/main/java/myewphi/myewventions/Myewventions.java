@@ -1,11 +1,13 @@
 package myewphi.myewventions;
 
 import myewphi.myewventions.blockentity.cubezio.CrucibleBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.HeatPipeBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
 import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
+import myewphi.myewventions.capability.ModCapabilities;
 import myewphi.myewventions.item.ModItems;
 import myewphi.myewventions.recipe.ModRecipes;
 import net.minecraft.client.Minecraft;
@@ -64,6 +66,11 @@ public class Myewventions {
     }
 
     private void onRegisterCapabilities(RegisterCapabilitiesEvent event){
+        //Item
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.ITEM_PIPE_BE.get(),
+                ItemPipeBlockEntity::getItemHandler);
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.HEATER_BE.get(),
@@ -72,10 +79,16 @@ public class Myewventions {
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.CRUCIBLE_BE.get(),
                 CrucibleBlockEntity::getItemHandler);
+
+        //Heat
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                ModBlockEntities.ITEM_PIPE_BE.get(),
-                ItemPipeBlockEntity::getItemHandler);
+                ModCapabilities.HeatHandler.BLOCK,
+                ModBlockEntities.HEAT_PIPE_BE.get(),
+                HeatPipeBlockEntity::getHeatHandler);
+        event.registerBlockEntity(
+                ModCapabilities.HeatHandler.BLOCK,
+                ModBlockEntities.HEATER_BE.get(),
+                HeaterBlockEntity::getHeatHandler);
     }
 
     @SubscribeEvent

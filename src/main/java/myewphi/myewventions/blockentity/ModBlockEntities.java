@@ -3,6 +3,7 @@ package myewphi.myewventions.blockentity;
 import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.ModBlocks;
 import myewphi.myewventions.blockentity.cubezio.CrucibleBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.HeatPipeBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
 import myewphi.myewventions.blockentity.misc.PedestalBlockEntity;
@@ -33,6 +34,10 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<ItemPipeBlockEntity>> ITEM_PIPE_BE =
             BLOCK_ENTITIES.register("item_pipe_be", () -> BlockEntityType.Builder.of(
                     ItemPipeBlockEntity::new, ModBlocks.ITEM_PIPE.get()).build(null));
+
+    public static final Supplier<BlockEntityType<HeatPipeBlockEntity>> HEAT_PIPE_BE =
+            BLOCK_ENTITIES.register("heat_pipe_be", () -> BlockEntityType.Builder.of(
+                    HeatPipeBlockEntity::new, ModBlocks.HEAT_PIPE.get()).build(null));
 
 
 

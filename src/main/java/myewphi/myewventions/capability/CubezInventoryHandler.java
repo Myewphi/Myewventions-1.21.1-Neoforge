@@ -1,7 +1,6 @@
 package myewphi.myewventions.capability;
 
 import myewphi.myewventions.Myewventions;
-import myewphi.myewventions.blockentity.cubezio.IHeatHandler;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -31,14 +30,14 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
 
     //Solid
     @Override
+    public int getSlots() {
+        return stacks.size();
+    }
+    @Override
     public void setStackInSlot(int slot, ItemStack stack) {
         validateSlotIndex(slot);
         this.stacks.set(slot, stack);
         onContentsChanged(slot);
-    }
-    @Override
-    public int getSlots() {
-        return stacks.size();
     }
     @Override
     public ItemStack getStackInSlot(int slot) {
@@ -113,12 +112,12 @@ public class CubezInventoryHandler implements IItemHandler, IHeatHandler, IItemH
             return existing.copyWithCount(toExtract);
         }
     }
+    protected int getStackLimit(int slot, ItemStack stack) {
+        return Math.min(getSlotLimit(slot), stack.getMaxStackSize());
+    }
     @Override
     public int getSlotLimit(int slot) {
         return Item.ABSOLUTE_MAX_STACK_SIZE;
-    }
-    protected int getStackLimit(int slot, ItemStack stack) {
-        return Math.min(getSlotLimit(slot), stack.getMaxStackSize());
     }
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {

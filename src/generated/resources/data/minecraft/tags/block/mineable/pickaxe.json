@@ -2,8 +2,9 @@
   "values": [
     "myewventions:pedestal_block",
     "myewventions:heater_block",
-    "myewventions:item_pipe",
     "myewventions:crucible_block",
+    "myewventions:item_pipe",
+    "myewventions:heat_pipe",
     "myewventions:silver_block",
     "myewventions:ancient_stone"
   ]

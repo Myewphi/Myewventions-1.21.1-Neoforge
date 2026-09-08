@@ -28,6 +28,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.HEATER_BLOCK.get());
         dropSelf(ModBlocks.CRUCIBLE_BLOCK.get());
         dropSelf(ModBlocks.ITEM_PIPE.get());
+        dropSelf(ModBlocks.HEAT_PIPE.get());
 
         dropSelf(ModBlocks.SILVER_BLOCK.get());
 

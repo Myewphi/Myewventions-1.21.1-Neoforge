@@ -2,9 +2,8 @@ package myewphi.myewventions.block.cubezio;
 
 import com.mojang.serialization.MapCodec;
 import myewphi.myewventions.blockentity.ModBlockEntities;
-import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.HeatPipeBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -14,25 +13,27 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemPipeBlock extends AbstractPipeBlock {
-    public static final MapCodec<ItemPipeBlock> CODEC = simpleCodec(ItemPipeBlock::new);
+public class HeatPipeBlock extends AbstractPipeBlock{
+    public static final MapCodec<HeatPipeBlock> CODEC = simpleCodec(HeatPipeBlock::new);
 
-    public ItemPipeBlock(Properties properties) {
-        super(properties, true, false);
+    public HeatPipeBlock(Properties properties) {
+        super(properties, false, true);
     }
+    @Override
+    boolean isSameBlockType(Block block) {
+        return block instanceof HeatPipeBlock;
+    }
+
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Override
-    boolean isSameBlockType(Block block) {
-        return block instanceof ItemPipeBlock;
-    }
-    @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ItemPipeBlockEntity(pos, state);
+        return new HeatPipeBlockEntity(pos, state);
     }
+
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
@@ -40,7 +41,7 @@ public class ItemPipeBlock extends AbstractPipeBlock {
             return null;
         }
 
-        return createTickerHelper(blockEntityType, ModBlockEntities.ITEM_PIPE_BE.get(),
-                (level1, blockPos, blockState, blockEntity) -> blockEntity.itemMoveTick(level1, blockPos, blockState, blockEntity));
+        return createTickerHelper(blockEntityType, ModBlockEntities.HEAT_PIPE_BE.get(),
+                (level1, blockPos, blockState, blockEntity) -> blockEntity.heatMoveTick(level1, blockPos, blockState, blockEntity));
     }
 }

@@ -1,4 +1,4 @@
-package myewphi.myewventions.blockentity.cubezio;
+package myewphi.myewventions.capability;
 
 public interface IHeatHandler {
     int getHeatSlots();

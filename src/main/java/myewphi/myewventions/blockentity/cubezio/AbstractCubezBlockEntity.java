@@ -2,6 +2,7 @@ package myewphi.myewventions.blockentity.cubezio;
 
 import myewphi.myewventions.capability.CubezInventoryHandler;
 import myewphi.myewventions.capability.CubezSidedInventoryHandler;
+import myewphi.myewventions.capability.IHeatHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -59,6 +60,32 @@ public abstract class AbstractCubezBlockEntity extends BlockEntity {
     public CubezSidedInventoryHandler WEST_INVENTORY_HANDLER = new CubezSidedInventoryHandler(new int[]{0}, "none", Direction.WEST, BASE_INVENTORY_HANDLER);
 
     public IItemHandler getItemHandler(@Nullable Direction side) {
+        if(side != null){
+            switch(side){
+                case UP -> {
+                    return UP_INVENTORY_HANDLER;
+                }
+                case DOWN -> {
+                    return DOWN_INVENTORY_HANDLER;
+                }
+                case NORTH -> {
+                    return NORTH_INVENTORY_HANDLER;
+                }
+                case EAST -> {
+                    return EAST_INVENTORY_HANDLER;
+                }
+                case SOUTH -> {
+                    return SOUTH_INVENTORY_HANDLER;
+                }
+                case WEST -> {
+                    return WEST_INVENTORY_HANDLER;
+                }
+
+            }
+        }
+        return null;
+    }
+    public IHeatHandler getHeatHandler(@Nullable Direction side) {
         if(side != null){
             switch(side){
                 case UP -> {

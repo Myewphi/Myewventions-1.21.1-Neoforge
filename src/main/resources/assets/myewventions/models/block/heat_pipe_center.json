@@ -1,0 +1,7 @@
+{
+	"parent": "myewventions:block/item_pipe_center",
+	"textures": {
+		"0": "myewventions:block/heat_pipe",
+		"particle": "myewventions:block/heat_pipe"
+	}
+}

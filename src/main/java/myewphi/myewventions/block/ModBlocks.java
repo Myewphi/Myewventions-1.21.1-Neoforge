@@ -2,6 +2,7 @@ package myewphi.myewventions.block;
 
 import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.cubezio.CrucibleBlock;
+import myewphi.myewventions.block.cubezio.HeatPipeBlock;
 import myewphi.myewventions.block.cubezio.HeaterBlock;
 import myewphi.myewventions.block.cubezio.ItemPipeBlock;
 import myewphi.myewventions.block.fleshgeode.*;
@@ -30,6 +31,8 @@ public class ModBlocks {
             () -> new CrucibleBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
     public static final DeferredBlock<Block> ITEM_PIPE = registerBlock("item_pipe",
             () -> new ItemPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
+    public static final DeferredBlock<Block> HEAT_PIPE = registerBlock("heat_pipe",
+            () -> new HeatPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
 
     public static final DeferredBlock<Block> SILVER_BLOCK = registerBlock("silver_block",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
