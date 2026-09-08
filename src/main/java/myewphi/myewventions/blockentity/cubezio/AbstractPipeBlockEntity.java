@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
-public abstract class AbstractPipeBlockEntity extends AbstractCubezBlockEntity {
+public abstract class AbstractPipeBlockEntity extends DeprecatedAbstractCubezBlockEntity {
     protected int cooldownTime = -1;
     public int ITEM_SPEED = 0;
     public int HEAT_SPEED = 0;

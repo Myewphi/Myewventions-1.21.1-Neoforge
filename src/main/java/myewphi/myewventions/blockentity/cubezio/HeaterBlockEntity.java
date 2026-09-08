@@ -1,48 +1,95 @@
 package myewphi.myewventions.blockentity.cubezio;
 
 import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.capability.HeatHandler;
+import myewphi.myewventions.capability.IHeatHandler;
 import myewphi.myewventions.recipe.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 
 public class HeaterBlockEntity extends AbstractCubezBlockEntity {
+    public ItemStackHandler FUEL = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if(!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+    };
+    public HeatHandler HEAT = new HeatHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if(!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        }
+
+        @Override
+        public int getHeatLimit(int slot) {
+            return 500;
+        }
+    };
     private int heatBuffer = 0;
 
     public HeaterBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.HEATER_BE.get(), pos, blockState);
+    }
 
-        BASE_INVENTORY_HANDLER = baseInventoryHandler(2, 1);
+    @Override
+    public void dropAllContents(Level level, BlockPos pos) {
+        dropContents(level, pos, FUEL);
+    }
 
-        UP_INVENTORY_HANDLER = sidedInventoryHandler(new int[]{0}, Direction.UP);
-        DOWN_INVENTORY_HANDLER = sidedInventoryHandler(new int[]{0, 1}, Direction.DOWN);
-        NORTH_INVENTORY_HANDLER = sidedInventoryHandler(new int[]{1}, Direction.NORTH);
+    @Override
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        if (side.equals(Direction.NORTH)) {
+            return FUEL;
+        }
+        return null;
+    }
+    @Override
+    public IHeatHandler getHeatHandler(@Nullable Direction side) {
+        if (side.equals(Direction.UP)) {
+            return HEAT;
+        }
+        return null;
     }
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
         if(heatBuffer > 0){
-            BASE_INVENTORY_HANDLER.insertHeat(0, 1, false);
+            HEAT.insertHeat(0, 1, false);
         }
         else {
             Optional<RecipeHolder<HeaterRecipe>> recipe = this.level.getRecipeManager()
-                    .getRecipeFor(ModRecipes.HEATER_TYPE.get(), new HeaterRecipeInput(this.BASE_INVENTORY_HANDLER.getStackInSlot(0)), level);
+                    .getRecipeFor(ModRecipes.HEATER_TYPE.get(), new HeaterRecipeInput(this.FUEL.getStackInSlot(0)), level);
 
             if(!recipe.isEmpty()) {
                 heatBuffer = recipe.get().value().output();
-                BASE_INVENTORY_HANDLER.extractItem(0, 1, false);
+                FUEL.extractItem(0, 1, false);
             }
         }
         //Heat dissipates from buffer even if it has nowhere to go
         heatBuffer -= 1;
     }
-
     private Optional<RecipeHolder<HeaterRecipe>> getCurrentRecipe() {
         return this.level.getRecipeManager()
-                .getRecipeFor(ModRecipes.HEATER_TYPE.get(), new HeaterRecipeInput(this.BASE_INVENTORY_HANDLER.getStackInSlot(0)), level);
+                .getRecipeFor(ModRecipes.HEATER_TYPE.get(), new HeaterRecipeInput(this.FUEL.getStackInSlot(0)), level);
     }
 }

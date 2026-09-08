@@ -271,7 +271,6 @@ public abstract class AbstractPipeBlock extends AbstractCubezBlock {
     }
 
     boolean canConnectToContainer(Level level, BlockPos pos, Direction dir){
-        Myewventions.LOGGER.info(TRANSFERS_ITEMS + " " + TRANSFERS_HEAT);
         if(TRANSFERS_ITEMS && level.getCapability(Capabilities.ItemHandler.BLOCK, pos, dir) instanceof IItemHandler){
             return true;
         }

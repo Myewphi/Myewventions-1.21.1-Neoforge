@@ -1,14 +1,17 @@
 package myewphi.myewventions.block.cubezio;
 
 import myewphi.myewventions.blockentity.cubezio.AbstractCubezBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.DeprecatedAbstractCubezBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -28,7 +31,7 @@ public abstract class AbstractCubezBlock extends BaseEntityBlock {
         if(state.getBlock() != newState.getBlock()){
             if(level.getBlockEntity(pos) instanceof AbstractCubezBlockEntity blockEntity){
                 if(blockEntity.getBlockState().getBlock() == this){
-                    blockEntity.dropContents(level, pos);
+                    blockEntity.dropAllContents(level, pos);
                     level.updateNeighbourForOutputSignal(pos, this);
                 }
             }
@@ -41,20 +44,14 @@ public abstract class AbstractCubezBlock extends BaseEntityBlock {
         if(!level.isClientSide()){
             if(level.getBlockEntity(pos) instanceof AbstractCubezBlockEntity blockEntity){
                 if(blockEntity.getBlockState().getBlock() == this){
-                    player.sendSystemMessage(Component.literal("Processor").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true).withUnderlined(true)));
-                    player.sendSystemMessage(Component.translatable(state.getBlock().getDescriptionId()));
-                    player.sendSystemMessage(Component.literal("Items").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true).withUnderlined(true)));
-                    for(int i = 0; i < blockEntity.BASE_INVENTORY_HANDLER.getSlots(); i++){
-                        player.sendSystemMessage(Component.literal(blockEntity.BASE_INVENTORY_HANDLER.getStackInSlot(i).toString()));
-                    }
-
-                    player.sendSystemMessage(Component.literal("Heats").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true).withUnderlined(true)));
-                    for(int i = 0; i < blockEntity.BASE_INVENTORY_HANDLER.getHeatSlots(); i++){
-                        player.sendSystemMessage(Component.literal(String.valueOf(blockEntity.BASE_INVENTORY_HANDLER.getHeatInSlot(i))));
-                    }
+                    sayMachineInfo(state, level, pos, player, hitResult, blockEntity);
                 }
             }
         }
         return super.useWithoutItem(state, level, pos, player, hitResult);
+    }
+    protected void sayMachineInfo(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, BlockEntity blockEntity){}
+    protected void sayMachineInfoLine(Player player, String title, String info){
+        player.sendSystemMessage(Component.literal(title + ": " + info));
     }
 }

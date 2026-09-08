@@ -4,12 +4,14 @@ import com.mojang.serialization.MapCodec;
 import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class HeaterBlock extends AbstractCubezBlock {
@@ -36,5 +38,14 @@ public class HeaterBlock extends AbstractCubezBlock {
 
         return createTickerHelper(blockEntityType, ModBlockEntities.HEATER_BE.get(),
                 (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState));
+    }
+
+    @Override
+    protected void sayMachineInfo(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, BlockEntity blockEntity) {
+        HeaterBlockEntity heaterBlockEntity = (HeaterBlockEntity) blockEntity;
+
+        sayMachineInfoLine(player, "Processor", state.getBlock().getDescriptionId());
+        sayMachineInfoLine(player, "Fuel", (heaterBlockEntity.FUEL.getStackInSlot(0).toString()));
+        sayMachineInfoLine(player, "Heat", String.valueOf((heaterBlockEntity.HEAT.getHeatInSlot(0))));
     }
 }
