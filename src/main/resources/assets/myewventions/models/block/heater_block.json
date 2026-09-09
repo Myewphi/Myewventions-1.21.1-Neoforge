@@ -5,7 +5,7 @@
     "east": "myewventions:block/machine_blank",
     "north": "myewventions:block/machine_solid_input",
     "particle": "myewventions:block/machine_blank",
-    "south": "myewventions:block/machine_solid_output",
+    "south": "myewventions:block/machine_blank",
     "up": "myewventions:block/machine_heat_output",
     "west": "myewventions:block/machine_blank"
   }

@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "myewventions:block/heater_block"
+    },
+    "facing=east": {
+      "model": "myewventions:block/heater_block",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "myewventions:block/heater_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "myewventions:block/heater_block",
+      "y": 270
     }
   }
 }

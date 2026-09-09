@@ -1,5 +1,6 @@
 package myewphi.myewventions.blockentity.cubezio;
 
+import myewphi.myewventions.block.cubezio.OvenBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.capability.HeatHandler;
 import myewphi.myewventions.capability.IHeatHandler;
@@ -64,8 +65,9 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
         if(side == null){
             return null;
         }
-
-        if (side.equals(Direction.NORTH)) {
+        assert level != null;
+        BlockState state = level.getBlockState(worldPosition);
+        if (side.equals(state.getValue(OvenBlock.FACING))) {
             return FUEL;
         }
 

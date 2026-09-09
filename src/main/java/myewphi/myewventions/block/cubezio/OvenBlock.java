@@ -5,21 +5,30 @@ import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.OvenBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class OvenBlock extends AbstractCubezBlock {
     public static final MapCodec<OvenBlock> CODEC = simpleCodec(OvenBlock::new);
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public OvenBlock(Properties properties) {
         super(properties);
+
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
@@ -28,6 +37,14 @@ public class OvenBlock extends AbstractCubezBlock {
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new OvenBlockEntity(pos, state);
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(FACING);
+    }
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        return defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
 
     @Nullable

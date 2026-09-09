@@ -12,6 +12,7 @@ import myewphi.myewventions.item.ModItems;
 import myewphi.myewventions.recipe.ModRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -92,7 +93,7 @@ public class Myewventions {
         event.registerBlockEntity(
                 ModCapabilities.HeatHandler.BLOCK,
                 ModBlockEntities.OVEN_BE.get(),
-                OvenBlockEntity::getHeatHandler);
+                (OvenBlockEntity::getHeatHandler));
     }
 
     @SubscribeEvent
