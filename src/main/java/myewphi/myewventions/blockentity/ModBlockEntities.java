@@ -2,10 +2,7 @@ package myewphi.myewventions.blockentity;
 
 import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.ModBlocks;
-import myewphi.myewventions.blockentity.cubezio.OvenBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.HeatPipeBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.*;
 import myewphi.myewventions.blockentity.misc.PedestalBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -38,6 +35,10 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<HeatPipeBlockEntity>> HEAT_PIPE_BE =
             BLOCK_ENTITIES.register("heat_pipe_be", () -> BlockEntityType.Builder.of(
                     HeatPipeBlockEntity::new, ModBlocks.HEAT_PIPE.get()).build(null));
+
+    public static final Supplier<BlockEntityType<SplitterBlockEntity>> SPLITTER_BE =
+            BLOCK_ENTITIES.register("splitter_be", () -> BlockEntityType.Builder.of(
+                    SplitterBlockEntity::new, ModBlocks.SPLITTER_BLOCK.get()).build(null));
 
 
 

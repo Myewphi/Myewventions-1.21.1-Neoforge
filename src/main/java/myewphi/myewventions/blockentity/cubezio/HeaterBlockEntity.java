@@ -90,6 +90,7 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
         if(heatBuffer > 0){
             HEAT.insertHeat(0, 2, false);
+            heatBuffer -= 2;
         }
         else {
             Optional<RecipeHolder<HeaterRecipe>> recipe = getCurrentRecipe();
@@ -99,8 +100,6 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
                 FUEL.extractItem(0, 1, false);
             }
         }
-        //Heat dissipates from buffer even if it has nowhere to go
-        heatBuffer -= 2;
     }
     private Optional<RecipeHolder<HeaterRecipe>> getCurrentRecipe() {
         return this.level.getRecipeManager()

@@ -1,12 +1,10 @@
 package myewphi.myewventions;
 
-import myewphi.myewventions.blockentity.cubezio.OvenBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.HeatPipeBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
+import myewphi.myewventions.block.cubezio.SplitterBlock;
+import myewphi.myewventions.blockentity.cubezio.*;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
-import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
 import myewphi.myewventions.capability.ModCapabilities;
 import myewphi.myewventions.item.ModItems;
 import myewphi.myewventions.recipe.ModRecipes;
@@ -80,6 +78,10 @@ public class Myewventions {
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.OVEN_BE.get(),
                 OvenBlockEntity::getItemHandler);
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.SPLITTER_BE.get(),
+                SplitterBlockEntity::getItemHandler);
 
         //Heat
         event.registerBlockEntity(

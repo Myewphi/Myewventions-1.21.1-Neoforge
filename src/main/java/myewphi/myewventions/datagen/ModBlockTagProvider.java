@@ -25,6 +25,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.OVEN_BLOCK.getKey())
                 .add(ModBlocks.ITEM_PIPE.getKey())
                 .add(ModBlocks.HEAT_PIPE.getKey())
+                .add(ModBlocks.SPLITTER_BLOCK.getKey())
 
                 .add(ModBlocks.SILVER_BLOCK.getKey())
 

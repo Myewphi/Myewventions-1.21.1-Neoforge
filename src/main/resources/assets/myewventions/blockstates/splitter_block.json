@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "myewventions:block/splitter_block"
+    },
+    "facing=east": {
+      "model": "myewventions:block/splitter_block",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "myewventions:block/splitter_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "myewventions:block/splitter_block",
+      "y": 270
+    }
+  }
+}

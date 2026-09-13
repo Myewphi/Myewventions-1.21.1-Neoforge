@@ -57,6 +57,6 @@ public class ItemPipeBlock extends AbstractPipeBlock {
         ItemPipeBlockEntity itemPipeBlockEntity = (ItemPipeBlockEntity) blockEntity;
 
         sayMachineInfoLine(player, "Pipe", state.getBlock().getDescriptionId());
-        sayMachineInfoLine(player, "Item", itemPipeBlockEntity.INV.getStackInSlot(0));
+        sayMachineInfoLine(player, "Inventory", itemPipeBlockEntity.INV.getStackInSlot(0));
     }
 }
