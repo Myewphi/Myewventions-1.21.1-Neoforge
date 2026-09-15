@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public record HeaterRecipe(Ingredient inputItem, int output) implements Recipe<HeaterRecipeInput> {
+public record HeaterRecipe(Ingredient inputItem, int output, int burnTime) implements Recipe<HeaterRecipeInput> {
     @Override
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> list = NonNullList.create();
@@ -59,13 +59,15 @@ public record HeaterRecipe(Ingredient inputItem, int output) implements Recipe<H
     public static class Serializer implements RecipeSerializer<HeaterRecipe>{
         public static final MapCodec<HeaterRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(HeaterRecipe::inputItem),
-                Codec.INT.fieldOf("heat").forGetter(HeaterRecipe::output)
+                Codec.INT.fieldOf("heat").forGetter(HeaterRecipe::output),
+                Codec.INT.fieldOf("burnTime").forGetter(HeaterRecipe::burnTime)
         ).apply(inst, HeaterRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, HeaterRecipe> STREAM_CODEC =
                 StreamCodec.composite(
                         Ingredient.CONTENTS_STREAM_CODEC, HeaterRecipe::inputItem,
                         ByteBufCodecs.INT, HeaterRecipe::output,
+                        ByteBufCodecs.INT, HeaterRecipe::burnTime,
                         HeaterRecipe::new);
 
         @Override

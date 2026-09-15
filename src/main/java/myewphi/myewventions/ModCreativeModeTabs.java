@@ -22,9 +22,10 @@ public class ModCreativeModeTabs {
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModBlocks.HEATER_BLOCK);
                         output.accept(ModBlocks.OVEN_BLOCK);
+                        output.accept(ModBlocks.EXTRACTOR_BLOCK);
                         output.accept(ModBlocks.SPLITTER_BLOCK);
                         output.accept(ModBlocks.ITEM_PIPE);
-                        output.accept(ModBlocks.HEAT_PIPE);
+                        output.accept(ModBlocks.HEAT_PLATE);
 
                         output.accept(ModItems.SILVER_INGOT);
                         output.accept(ModBlocks.SILVER_BLOCK);

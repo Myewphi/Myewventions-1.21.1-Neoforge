@@ -3,5 +3,6 @@
   "ingredient": {
     "item" : "minecraft:coal"
   },
-  "heat": 400
+  "heat": 20,
+  "burnTime": 200
 }

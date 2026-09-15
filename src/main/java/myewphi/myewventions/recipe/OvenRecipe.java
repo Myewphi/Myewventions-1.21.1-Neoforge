@@ -14,7 +14,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public record OvenRecipe(Ingredient inputItem, int inputItemCount, int heat, ItemStack result) implements Recipe<OvenRecipeInput> {
+public record OvenRecipe(Ingredient inputItem, int inputItemCount, int heat, int time, ItemStack result) implements Recipe<OvenRecipeInput> {
     @Override
     public boolean matches(OvenRecipeInput input, Level level) {
         if (level.isClientSide()) {
@@ -55,6 +55,7 @@ public record OvenRecipe(Ingredient inputItem, int inputItemCount, int heat, Ite
                 Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(OvenRecipe::inputItem),
                 Codec.INT.fieldOf("count").forGetter(OvenRecipe::inputItemCount),
                 Codec.INT.fieldOf("heat").forGetter(OvenRecipe::heat),
+                Codec.INT.fieldOf("time").forGetter(OvenRecipe::time),
                 ItemStack.CODEC.fieldOf("result").forGetter(OvenRecipe::result)
         ).apply(inst, OvenRecipe::new));
 
@@ -63,6 +64,7 @@ public record OvenRecipe(Ingredient inputItem, int inputItemCount, int heat, Ite
                         Ingredient.CONTENTS_STREAM_CODEC, OvenRecipe::inputItem,
                         ByteBufCodecs.INT, OvenRecipe::inputItemCount,
                         ByteBufCodecs.INT, OvenRecipe::heat,
+                        ByteBufCodecs.INT, OvenRecipe::time,
                         ItemStack.STREAM_CODEC, OvenRecipe::result,
                         OvenRecipe::new);
 

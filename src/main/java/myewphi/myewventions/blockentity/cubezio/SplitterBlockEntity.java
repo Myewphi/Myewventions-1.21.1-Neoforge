@@ -1,9 +1,7 @@
 package myewphi.myewventions.blockentity.cubezio;
 
 import myewphi.myewventions.block.cubezio.ISideRestrictedIO;
-import myewphi.myewventions.block.cubezio.OvenBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
-import myewphi.myewventions.capability.IHeatHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -45,7 +43,7 @@ public class SplitterBlockEntity extends AbstractCubezBlockEntity implements ISi
         if(side == null){
             return null;
         }
-        
+
         if(!side.equals(Direction.UP) && !side.equals(Direction.DOWN)){
             return INV;
         }
@@ -73,14 +71,6 @@ public class SplitterBlockEntity extends AbstractCubezBlockEntity implements ISi
     }
     @Override
     public boolean isInputSide(Direction dir) {
-        return false;
-    }
-    @Override
-    public boolean canExtract(Direction dir) {
-        return false;
-    }
-    @Override
-    public boolean canInsert(Direction dir) {
         return false;
     }
 }

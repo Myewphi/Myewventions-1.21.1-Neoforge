@@ -65,6 +65,6 @@ public class HeaterBlock extends AbstractCubezBlock {
 
         sayMachineInfoLine(player, "Processor", state.getBlock().getDescriptionId());
         sayMachineInfoLine(player, "Fuel", heaterBlockEntity.FUEL.getStackInSlot(0));
-        sayMachineInfoLine(player, "Heat", String.valueOf((heaterBlockEntity.HEAT.getHeatInSlot(0))));
+        sayMachineInfoLine(player, "Heat", String.valueOf((heaterBlockEntity.HEAT.getHeat())));
     }
 }

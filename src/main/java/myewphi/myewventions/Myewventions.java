@@ -1,6 +1,5 @@
 package myewphi.myewventions;
 
-import myewphi.myewventions.block.cubezio.SplitterBlock;
 import myewphi.myewventions.blockentity.cubezio.*;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
@@ -10,7 +9,6 @@ import myewphi.myewventions.item.ModItems;
 import myewphi.myewventions.recipe.ModRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -80,14 +78,18 @@ public class Myewventions {
                 OvenBlockEntity::getItemHandler);
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.EXTRACTOR_BE.get(),
+                ExtractorBlockEntity::getItemHandler);
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.SPLITTER_BE.get(),
                 SplitterBlockEntity::getItemHandler);
 
         //Heat
         event.registerBlockEntity(
                 ModCapabilities.HeatHandler.BLOCK,
-                ModBlockEntities.HEAT_PIPE_BE.get(),
-                HeatPipeBlockEntity::getHeatHandler);
+                ModBlockEntities.HEAT_PLATE_BE.get(),
+                HeatPlateBlockEntity::getHeatHandler);
         event.registerBlockEntity(
                 ModCapabilities.HeatHandler.BLOCK,
                 ModBlockEntities.HEATER_BE.get(),
@@ -95,7 +97,7 @@ public class Myewventions {
         event.registerBlockEntity(
                 ModCapabilities.HeatHandler.BLOCK,
                 ModBlockEntities.OVEN_BE.get(),
-                (OvenBlockEntity::getHeatHandler));
+                OvenBlockEntity::getHeatHandler);
     }
 
     @SubscribeEvent

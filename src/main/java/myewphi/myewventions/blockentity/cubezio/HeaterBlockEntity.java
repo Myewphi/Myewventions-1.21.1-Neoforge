@@ -12,7 +12,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +34,7 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
             return 1;
         }
     };
-    public HeatHandler HEAT = new HeatHandler(1) {
+    public HeatHandler HEAT = new HeatHandler() {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -43,13 +42,8 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
-
-        @Override
-        public int getHeatLimit(int slot) {
-            return 500;
-        }
     };
-    private int heatBuffer = 0;
+    private int burnTime = 0;
 
     public HeaterBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.HEATER_BE.get(), pos, blockState);
@@ -88,15 +82,18 @@ public class HeaterBlockEntity extends AbstractCubezBlockEntity {
 
     //Crafting
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        if(heatBuffer > 0){
-            HEAT.insertHeat(0, 2, false);
-            heatBuffer -= 2;
+        if(burnTime > 0){
+            burnTime -= 1;
+            if(burnTime <= 0){
+                HEAT.setHeat(0);
+            }
         }
         else {
             Optional<RecipeHolder<HeaterRecipe>> recipe = getCurrentRecipe();
 
             if(!recipe.isEmpty()) {
-                heatBuffer = recipe.get().value().output();
+                burnTime = recipe.get().value().burnTime();
+                HEAT.setHeat(recipe.get().value().output());
                 FUEL.extractItem(0, 1, false);
             }
         }

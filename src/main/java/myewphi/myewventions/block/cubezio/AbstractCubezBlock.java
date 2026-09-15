@@ -41,9 +41,11 @@ public abstract class AbstractCubezBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if(!level.isClientSide()){
-            if(level.getBlockEntity(pos) instanceof AbstractCubezBlockEntity blockEntity){
-                if(blockEntity.getBlockState().getBlock() == this){
-                    sayMachineInfo(state, level, pos, player, hitResult, blockEntity);
+            if(player.getItemInHand(player.getUsedItemHand()).isEmpty()){
+                if(level.getBlockEntity(pos) instanceof AbstractCubezBlockEntity blockEntity){
+                    if(blockEntity.getBlockState().getBlock() == this){
+                        sayMachineInfo(state, level, pos, player, hitResult, blockEntity);
+                    }
                 }
             }
         }

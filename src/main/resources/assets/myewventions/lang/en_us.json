@@ -7,9 +7,10 @@
   "item.myewventions.chisel": "Chisel",
 
   "block.myewventions.item_pipe": "Item Pipe",
-  "block.myewventions.heat_pipe": "Heat Pipe",
+  "block.myewventions.heat_plate": "Heat Plates",
   "block.myewventions.heater_block": "Heater",
   "block.myewventions.oven_block": "Oven",
+  "block.myewventions.extractor_block": "Extractor",
   "block.myewventions.splitter_block": "Splitter",
 
   "block.myewventions.silver_block": "Silver Block",

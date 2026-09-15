@@ -5,6 +5,7 @@ import myewphi.myewventions.block.cubezio.OvenBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.capability.HeatHandler;
 import myewphi.myewventions.capability.IHeatHandler;
+import myewphi.myewventions.capability.ModCapabilities;
 import myewphi.myewventions.recipe.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -48,18 +49,13 @@ public class OvenBlockEntity extends AbstractCubezBlockEntity {
             return 1;
         }
     };
-    public HeatHandler HEAT = new HeatHandler(1) {
+    public HeatHandler HEAT = new HeatHandler() {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
             if(!level.isClientSide()) {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
-        }
-
-        @Override
-        public int getHeatLimit(int slot) {
-            return 200;
         }
     };
     public int PROGRESS = 0;
@@ -105,11 +101,35 @@ public class OvenBlockEntity extends AbstractCubezBlockEntity {
     }
 
     //Crafting
-    public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        if(HEAT.getHeatInSlot(0) == 0){
+    public void tick(Level level, BlockPos blockPos, BlockState blockState, AbstractCubezBlockEntity blockEntity) {
+        if(level.isClientSide()){
             return;
         }
+        heatTick(blockPos, Direction.UP);
+        craftingTick();
+        outputTick(level, blockPos, blockState, blockEntity);
+    }
+    void heatTick(BlockPos pos, Direction dir){
+        int heat = 0;
 
+        IHeatHandler heatHandler = level.getCapability(ModCapabilities.HeatHandler.BLOCK, pos.relative(dir), dir.getOpposite());
+
+        if(heatHandler != null){
+            heat = heatHandler.getHeat() - 1;
+        }
+
+        HEAT.setHeat(Math.max(0, heat));
+    }
+    void outputTick(Level level, BlockPos blockPos, BlockState blockState, AbstractCubezBlockEntity blockEntity){
+        blockEntity.COOLDOWN_TIME--;
+
+        if(!blockEntity.isOnCooldown()){
+            if(tryPushItems(level, blockPos, OUTPUT, blockState.getValue(OvenBlock.FACING).getOpposite())){
+                setCooldown(8);
+            }
+        }
+    }
+    void craftingTick(){
         Optional<RecipeHolder<OvenRecipe>> recipe = getCurrentRecipe();
         if(recipe.isEmpty()){
             PROGRESS = 0;
@@ -117,11 +137,17 @@ public class OvenBlockEntity extends AbstractCubezBlockEntity {
         }
 
         if(!OUTPUT.insertItem(0, recipe.get().value().result(), true).isEmpty()){
+            PROGRESS = 0;
             return;
         }
 
-        PROGRESS += HEAT.extractHeat(0, 1, false);
-        if(PROGRESS >= recipe.get().value().heat()){
+        if(HEAT.getHeat() < recipe.get().value().heat()){
+            PROGRESS = 0;
+            return;
+        }
+
+        PROGRESS += 1;
+        if(PROGRESS >= recipe.get().value().time()){
             INPUT.extractItem(0, recipe.get().value().inputItemCount(), false);
             OUTPUT.insertItem(0, recipe.get().value().result().copy(), false);
             PROGRESS = 0;

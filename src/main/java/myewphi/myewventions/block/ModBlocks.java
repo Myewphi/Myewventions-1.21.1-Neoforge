@@ -28,9 +28,11 @@ public class ModBlocks {
     public static final DeferredBlock<Block> OVEN_BLOCK = registerBlock("oven_block",
             () -> new OvenBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
     public static final DeferredBlock<Block> ITEM_PIPE = registerBlock("item_pipe",
-            () -> new ItemPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion(), 2));
-    public static final DeferredBlock<Block> HEAT_PIPE = registerBlock("heat_pipe",
-            () -> new HeatPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion(), 16));
+            () -> new ItemPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion(), 1));
+    public static final DeferredBlock<Block> HEAT_PLATE = registerBlock("heat_plate",
+            () -> new HeatPlateBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
+    public static final DeferredBlock<Block> EXTRACTOR_BLOCK = registerBlock("extractor_block",
+            () -> new ExtractorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
     public static final DeferredBlock<Block> SPLITTER_BLOCK = registerBlock("splitter_block",
             () -> new SplitterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
 

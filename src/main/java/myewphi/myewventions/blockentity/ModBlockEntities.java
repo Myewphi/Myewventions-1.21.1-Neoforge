@@ -32,13 +32,17 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("item_pipe_be", () -> BlockEntityType.Builder.of(
                     ItemPipeBlockEntity::new, ModBlocks.ITEM_PIPE.get()).build(null));
 
-    public static final Supplier<BlockEntityType<HeatPipeBlockEntity>> HEAT_PIPE_BE =
-            BLOCK_ENTITIES.register("heat_pipe_be", () -> BlockEntityType.Builder.of(
-                    HeatPipeBlockEntity::new, ModBlocks.HEAT_PIPE.get()).build(null));
+    public static final Supplier<BlockEntityType<HeatPlateBlockEntity>> HEAT_PLATE_BE =
+            BLOCK_ENTITIES.register("heat_plate_be", () -> BlockEntityType.Builder.of(
+                    HeatPlateBlockEntity::new, ModBlocks.HEAT_PLATE.get()).build(null));
 
     public static final Supplier<BlockEntityType<SplitterBlockEntity>> SPLITTER_BE =
             BLOCK_ENTITIES.register("splitter_be", () -> BlockEntityType.Builder.of(
                     SplitterBlockEntity::new, ModBlocks.SPLITTER_BLOCK.get()).build(null));
+
+    public static final Supplier<BlockEntityType<ExtractorBlockEntity>> EXTRACTOR_BE =
+            BLOCK_ENTITIES.register("extractor_be", () -> BlockEntityType.Builder.of(
+                    ExtractorBlockEntity::new, ModBlocks.EXTRACTOR_BLOCK.get()).build(null));
 
 
 
