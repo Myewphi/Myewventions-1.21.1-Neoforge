@@ -1,6 +1,5 @@
 package myewphi.myewventions.blockentity.cubezio;
 
-import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.cubezio.OvenBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.capability.HeatHandler;
@@ -29,11 +28,6 @@ public class OvenBlockEntity extends AbstractCubezBlockEntity {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
     };
     public ItemStackHandler OUTPUT = new ItemStackHandler(1) {
         @Override
@@ -42,11 +36,6 @@ public class OvenBlockEntity extends AbstractCubezBlockEntity {
             if(!level.isClientSide()) {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
         }
     };
     public HeatHandler HEAT = new HeatHandler() {

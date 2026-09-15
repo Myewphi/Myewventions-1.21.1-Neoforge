@@ -3,6 +3,7 @@ package myewphi.myewventions.block.cubezio;
 import com.mojang.serialization.MapCodec;
 import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.ExtractorBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -261,6 +262,11 @@ public class ItemPipeBlock extends AbstractCubezBlock {
         return true;
     }
     boolean isValidContainerNeighbor(Level level, BlockPos pos, Direction dir){
+        if(level.getBlockEntity(pos) instanceof ExtractorBlockEntity extractorBlockEntity){
+            if(extractorBlockEntity.getOutputSide(level.getBlockState(pos)).equals(dir.getOpposite())){
+                return true;
+            }
+        }
         if(level.getCapability(Capabilities.ItemHandler.BLOCK, pos, dir.getOpposite()) != null){
             return true;
         }

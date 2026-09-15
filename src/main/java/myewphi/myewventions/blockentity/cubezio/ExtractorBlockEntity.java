@@ -24,7 +24,7 @@ public class ExtractorBlockEntity extends AbstractCubezBlockEntity{
         if (!blockEntity.isOnCooldown()) {
             blockEntity.setCooldown(0);
 
-            IItemHandler itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.relative(getInputSide(blockState)), getInputSide(blockState));
+            IItemHandler itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos.relative(getInputSide(blockState)), getInputSide(blockState).getOpposite());
 
             if(tryPushItems(level, pos, itemHandler, getOutputSide(blockState))){
                 setCooldown(8);
@@ -34,7 +34,7 @@ public class ExtractorBlockEntity extends AbstractCubezBlockEntity{
     Direction getInputSide(BlockState state){
         return state.getValue(ExtractorBlock.FACING);
     }
-    Direction getOutputSide(BlockState state){
+    public Direction getOutputSide(BlockState state){
         return state.getValue(ExtractorBlock.FACING).getOpposite();
     }
 }

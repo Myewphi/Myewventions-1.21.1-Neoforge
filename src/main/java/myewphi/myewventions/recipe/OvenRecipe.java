@@ -23,7 +23,7 @@ public record OvenRecipe(Ingredient inputItem, int inputItemCount, int heat, int
 
         boolean correctItem = inputItem.test(input.getItem(0));
 
-        return input.size() >= inputItemCount && correctItem;
+        return (input.getItem(0).getCount() >= inputItemCount) && correctItem;
     }
 
     @Override
