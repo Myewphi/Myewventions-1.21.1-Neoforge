@@ -3,11 +3,22 @@
     {
       "apply": {
         "model": "myewventions:block/item_pipe_center"
+      },
+      "when": {
+        "active": false
       }
     },
     {
       "apply": {
-        "model": "myewventions:block/item_pipe_input",
+        "model": "myewventions:block/item_pipe_center_active"
+      },
+      "when": {
+        "active": true
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/item_pipe_side",
         "uvlock": true
       },
       "when": {
@@ -16,7 +27,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/item_pipe_input",
+        "model": "myewventions:block/item_pipe_side",
         "uvlock": true,
         "y": 90
       },
@@ -26,7 +37,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/item_pipe_input",
+        "model": "myewventions:block/item_pipe_side",
         "uvlock": true,
         "y": 180
       },
@@ -36,7 +47,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/item_pipe_input",
+        "model": "myewventions:block/item_pipe_side",
         "uvlock": true,
         "y": 270
       },
@@ -46,7 +57,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/item_pipe_input",
+        "model": "myewventions:block/item_pipe_side",
         "uvlock": true,
         "x": 270
       },
@@ -56,7 +67,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/item_pipe_input",
+        "model": "myewventions:block/item_pipe_side",
         "uvlock": true,
         "x": 90
       },

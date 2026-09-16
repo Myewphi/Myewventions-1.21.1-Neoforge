@@ -2,12 +2,12 @@
   "multipart": [
     {
       "apply": {
-        "model": "myewventions:block/heat_pipe_center"
+        "model": "myewventions:block/heat_plate_center"
       }
     },
     {
       "apply": {
-        "model": "myewventions:block/heat_pipe_input",
+        "model": "myewventions:block/heat_plate_side",
         "uvlock": true
       },
       "when": {
@@ -16,7 +16,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/heat_pipe_input",
+        "model": "myewventions:block/heat_plate_side",
         "uvlock": true,
         "y": 90
       },
@@ -26,7 +26,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/heat_pipe_input",
+        "model": "myewventions:block/heat_plate_side",
         "uvlock": true,
         "y": 180
       },
@@ -36,7 +36,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/heat_pipe_input",
+        "model": "myewventions:block/heat_plate_side",
         "uvlock": true,
         "y": 270
       },
@@ -46,7 +46,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/heat_pipe_input",
+        "model": "myewventions:block/heat_plate_side",
         "uvlock": true,
         "x": 270
       },
@@ -56,7 +56,7 @@
     },
     {
       "apply": {
-        "model": "myewventions:block/heat_pipe_input",
+        "model": "myewventions:block/heat_plate_side",
         "uvlock": true,
         "x": 90
       },

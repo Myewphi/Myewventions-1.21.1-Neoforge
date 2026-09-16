@@ -39,11 +39,12 @@ public class ItemPipeBlock extends AbstractCubezBlock {
     private static final VoxelShape DOWN_BOX = Block.box(2, 0, 2, 14, 2, 14);
 
     private static final BooleanProperty NORTH = BooleanProperty.create("north");
-    private static final BooleanProperty EAST = BooleanProperty.create("east");
+    private static final BooleanProperty EAST = BooleanProperty. create("east");
     private static final BooleanProperty SOUTH = BooleanProperty.create("south");
     private static final BooleanProperty WEST = BooleanProperty.create("west");
     private static final BooleanProperty UP = BooleanProperty.create("up");
     private static final BooleanProperty DOWN = BooleanProperty.create("down");
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
     public ItemPipeBlock(Properties properties){
         super(properties);
@@ -59,6 +60,7 @@ public class ItemPipeBlock extends AbstractCubezBlock {
                 .setValue(WEST, Boolean.FALSE)
                 .setValue(UP, Boolean.FALSE)
                 .setValue(DOWN, Boolean.FALSE)
+                .setValue(ACTIVE, Boolean.FALSE)
         );
     }
     @Override
@@ -97,7 +99,7 @@ public class ItemPipeBlock extends AbstractCubezBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN);
+        pBuilder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, ACTIVE);
     }
 
     @Override
@@ -105,7 +107,6 @@ public class ItemPipeBlock extends AbstractCubezBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        BlockState state = level.getBlockState(pos);
 
         Direction connectionOne = null;
         Direction connectionTwo = null;

@@ -1,5 +1,6 @@
 package myewphi.myewventions.blockentity.cubezio;
 
+import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.cubezio.ItemPipeBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -86,6 +87,9 @@ public class ItemPipeBlockEntity extends AbstractCubezBlockEntity {
             return;
         }
         blockEntity.COOLDOWN_TIME--;
+        if(COOLDOWN_TIME <= 6 && blockState.getValue(ItemPipeBlock.ACTIVE)){
+            level.setBlock(pos, blockState.setValue(ItemPipeBlock.ACTIVE, Boolean.FALSE), 3);
+        }
         if (!blockEntity.isOnCooldown()) {
             blockEntity.setCooldown(0);
 
@@ -95,9 +99,11 @@ public class ItemPipeBlockEntity extends AbstractCubezBlockEntity {
                 if(connections.length == 2){
                     if(tryPushItems(level, pos, INV_ONE, connections[1])){
                         setCooldown(8);
+                        level.setBlock(pos, blockState.setValue(ItemPipeBlock.ACTIVE, Boolean.TRUE), 3);
                     }
                     if(tryPushItems(level, pos, INV_TWO, connections[0])){
                         setCooldown(8);
+                        level.setBlock(pos, blockState.setValue(ItemPipeBlock.ACTIVE, Boolean.TRUE), 3);
                     }
                 }
             }

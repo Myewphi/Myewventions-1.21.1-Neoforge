@@ -3,11 +3,11 @@
   "ingredient": {
     "item" : "minecraft:raw_iron"
   },
-  "count": 2,
+  "count": 3,
   "heat": 15,
   "time": 200,
   "result": {
     "id": "minecraft:iron_ingot",
-    "count": 64
+    "count": 1
   }
 }

@@ -1,7 +1,0 @@
-{
-	"parent": "myewventions:block/item_pipe_output",
-	"textures": {
-		"0": "myewventions:block/heat_pipe_output",
-		"particle": "myewventions:block/heat_pipe_output"
-	}
-}
