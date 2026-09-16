@@ -25,7 +25,5 @@ public class MyewventionsClient {
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
-        Myewventions.LOGGER.info("HELLO FROM CLIENT SETUP");
-        Myewventions.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
 }

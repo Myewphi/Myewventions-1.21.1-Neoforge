@@ -1,5 +1,6 @@
 package myewphi.myewventions.blockentity.cubezio;
 
+import myewphi.myewventions.block.cubezio.ExtractorBlock;
 import myewphi.myewventions.block.cubezio.SplitterBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -8,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -57,8 +59,14 @@ public class SplitterBlockEntity extends AbstractCubezBlockEntity {
         if(level.isClientSide()){
             return;
         }
+
+        boolean powered = isPowered(level, pos);
+        if(blockState.getValue(ExtractorBlock.ENABLED) == powered){
+            level.setBlock(pos, blockState.setValue(ExtractorBlock.ENABLED, !powered), 3);
+        }
+
         blockEntity.COOLDOWN_TIME--;
-        if (!blockEntity.isOnCooldown()) {
+        if (!blockEntity.isOnCooldown() && blockState.getValue(BlockStateProperties.ENABLED)) {
             int count = getOutputCount(level, pos, blockState);
             if(roundRobin >= count){
                 roundRobin = 0;

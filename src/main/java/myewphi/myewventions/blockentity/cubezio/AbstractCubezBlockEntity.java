@@ -108,4 +108,13 @@ public abstract class AbstractCubezBlockEntity extends BlockEntity {
     public IHeatHandler getHeatHandler(@Nullable Direction side) {
         return null;
     }
+
+    public boolean isPowered(Level level, BlockPos pos){
+        for(Direction dir : Direction.values()){
+            if(level.getSignal(pos.relative(dir), dir) > 0){
+                return true;
+            }
+        }
+        return false;
+    }
 }

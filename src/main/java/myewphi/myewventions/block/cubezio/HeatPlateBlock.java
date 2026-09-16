@@ -30,12 +30,12 @@ import org.jetbrains.annotations.Nullable;
 public class HeatPlateBlock extends AbstractCubezBlock{
     public static final MapCodec<HeatPlateBlock> CODEC = simpleCodec(HeatPlateBlock::new);
 
-    private static final VoxelShape NORTH_BOX = Block.box(2, 2, 0, 14, 14, 2);
-    private static final VoxelShape EAST_BOX = Block.box(14, 2, 2, 16, 14, 14);
-    private static final VoxelShape SOUTH_BOX = Block.box(2, 2, 14, 14, 14, 16);
-    private static final VoxelShape WEST_BOX = Block.box(0, 2, 2, 2, 14, 14);
-    private static final VoxelShape UP_BOX = Block.box(2, 14, 2, 14, 16, 14);
-    private static final VoxelShape DOWN_BOX = Block.box(2, 0, 2, 14, 2, 14);
+    private static final VoxelShape NORTH_BOX = Block.box(4, 4, 0, 12, 12, 4);
+    private static final VoxelShape EAST_BOX = Block.box(12, 4, 4, 16, 12, 12);
+    private static final VoxelShape SOUTH_BOX = Block.box(4, 4, 12, 12, 12, 16);
+    private static final VoxelShape WEST_BOX = Block.box(0, 4, 4, 4, 12, 12);
+    private static final VoxelShape UP_BOX = Block.box(4, 12, 4, 12, 16, 12);
+    private static final VoxelShape DOWN_BOX = Block.box(4, 0, 4, 12, 4, 12);
 
     private static final BooleanProperty NORTH = BooleanProperty.create("north");
     private static final BooleanProperty EAST = BooleanProperty.create("east");
@@ -69,7 +69,7 @@ public class HeatPlateBlock extends AbstractCubezBlock{
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        VoxelShape base = Block.box(2, 2, 2, 14, 14, 14);
+        VoxelShape base = Block.box(4, 4, 4, 12, 12, 12);
         if(state.getValue(NORTH).equals(Boolean.TRUE)){
             base = Shapes.or(base, NORTH_BOX);
         }

@@ -15,17 +15,20 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.Nullable;
 
 public class ExtractorBlock extends AbstractCubezBlock{
     public static final MapCodec<ExtractorBlock> CODEC = simpleCodec(ExtractorBlock::new);
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
+    public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 
     public ExtractorBlock(Properties properties) {
         super(properties);
 
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ENABLED, Boolean.TRUE));
     }
 
     @Override
@@ -38,7 +41,7 @@ public class ExtractorBlock extends AbstractCubezBlock{
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING, ENABLED);
     }
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
