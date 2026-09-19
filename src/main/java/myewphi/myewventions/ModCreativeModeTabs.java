@@ -23,7 +23,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.HEATER_BLOCK);
                         output.accept(ModBlocks.OVEN_BLOCK);
                         output.accept(ModBlocks.EXTRACTOR_BLOCK);
+                        output.accept(ModBlocks.FILTER_BLOCK);
                         output.accept(ModBlocks.SPLITTER_BLOCK);
+                        output.accept(ModBlocks.MERGER_BLOCK);
                         output.accept(ModBlocks.ITEM_PIPE);
                         output.accept(ModBlocks.HEAT_PLATE);
 

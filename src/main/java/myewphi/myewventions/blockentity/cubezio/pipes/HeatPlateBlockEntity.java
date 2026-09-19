@@ -1,6 +1,7 @@
-package myewphi.myewventions.blockentity.cubezio;
+package myewphi.myewventions.blockentity.cubezio.pipes;
 
 import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.AbstractCubezBlockEntity;
 import myewphi.myewventions.capability.HeatHandler;
 import myewphi.myewventions.capability.IHeatHandler;
 import myewphi.myewventions.capability.ModCapabilities;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class HeatPlateBlockEntity extends AbstractCubezBlockEntity{
+public class HeatPlateBlockEntity extends AbstractCubezBlockEntity {
     public HeatHandler HEAT = new HeatHandler() {
         @Override
         protected void onContentsChanged(int slot) {

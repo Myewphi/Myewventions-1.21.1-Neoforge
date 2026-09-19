@@ -1,8 +1,8 @@
-package myewphi.myewventions.blockentity.cubezio;
+package myewphi.myewventions.blockentity.cubezio.logistics;
 
-import myewphi.myewventions.block.cubezio.ExtractorBlock;
-import myewphi.myewventions.block.cubezio.SplitterBlock;
+import myewphi.myewventions.block.cubezio.logistics.SplitterBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.AbstractCubezBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -23,11 +23,6 @@ public class SplitterBlockEntity extends AbstractCubezBlockEntity {
             if(!level.isClientSide()) {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
         }
     };
     int roundRobin = 0;
@@ -61,8 +56,8 @@ public class SplitterBlockEntity extends AbstractCubezBlockEntity {
         }
 
         boolean powered = isPowered(level, pos);
-        if(blockState.getValue(ExtractorBlock.ENABLED) == powered){
-            level.setBlock(pos, blockState.setValue(ExtractorBlock.ENABLED, !powered), 3);
+        if(blockState.getValue(BlockStateProperties.ENABLED) == powered){
+            level.setBlock(pos, blockState.setValue(BlockStateProperties.ENABLED, !powered), 3);
         }
 
         blockEntity.COOLDOWN_TIME--;

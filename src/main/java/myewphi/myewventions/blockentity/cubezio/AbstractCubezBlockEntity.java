@@ -17,7 +17,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractCubezBlockEntity extends BlockEntity {
-    protected int COOLDOWN_TIME = -1;
+    public int COOLDOWN_TIME = -1;
 
     public AbstractCubezBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
@@ -98,7 +98,7 @@ public abstract class AbstractCubezBlockEntity extends BlockEntity {
     public void setCooldown(int cooldownTime) {
         this.COOLDOWN_TIME = cooldownTime;
     }
-    protected boolean isOnCooldown() {
+    public boolean isOnCooldown() {
         return this.COOLDOWN_TIME > 0;
     }
 

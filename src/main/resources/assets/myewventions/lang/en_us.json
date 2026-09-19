@@ -11,7 +11,9 @@
   "block.myewventions.heater_block": "Heater",
   "block.myewventions.oven_block": "Oven",
   "block.myewventions.extractor_block": "Extractor",
+  "block.myewventions.filter_block": "Filter",
   "block.myewventions.splitter_block": "Splitter",
+  "block.myewventions.merger_block": "Merger",
 
   "block.myewventions.silver_block": "Silver Block",
   "block.myewventions.flesh_geode_core": "Flesh Geode Embryo",

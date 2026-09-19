@@ -1,7 +1,8 @@
-package myewphi.myewventions.blockentity.cubezio;
+package myewphi.myewventions.blockentity.cubezio.logistics;
 
-import myewphi.myewventions.block.cubezio.ExtractorBlock;
+import myewphi.myewventions.block.cubezio.logistics.ExtractorBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.AbstractCubezBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -10,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
-public class ExtractorBlockEntity extends AbstractCubezBlockEntity{
+public class ExtractorBlockEntity extends AbstractCubezBlockEntity {
     public ExtractorBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.EXTRACTOR_BE.get(), pos, blockState);
     }
@@ -23,8 +24,8 @@ public class ExtractorBlockEntity extends AbstractCubezBlockEntity{
         }
 
         boolean powered = isPowered(level, pos);
-        if(blockState.getValue(ExtractorBlock.ENABLED) == powered){
-            level.setBlock(pos, blockState.setValue(ExtractorBlock.ENABLED, !powered), 3);
+        if(blockState.getValue(BlockStateProperties.ENABLED) == powered){
+            level.setBlock(pos, blockState.setValue(BlockStateProperties.ENABLED, !powered), 3);
         }
 
         blockEntity.COOLDOWN_TIME--;

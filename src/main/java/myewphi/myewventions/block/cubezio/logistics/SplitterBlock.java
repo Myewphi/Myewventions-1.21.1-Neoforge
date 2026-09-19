@@ -1,8 +1,9 @@
-package myewphi.myewventions.block.cubezio;
+package myewphi.myewventions.block.cubezio.logistics;
 
 import com.mojang.serialization.MapCodec;
-import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
+import myewphi.myewventions.block.cubezio.AbstractCubezBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.logistics.SplitterBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -16,18 +17,21 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class HeaterBlock extends AbstractCubezBlock {
-    public static final MapCodec<HeaterBlock> CODEC = simpleCodec(HeaterBlock::new);
+public class SplitterBlock extends AbstractCubezBlock {
+    public static final MapCodec<SplitterBlock> CODEC = simpleCodec(SplitterBlock::new);
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 
-    public HeaterBlock(Properties properties) {
+    public SplitterBlock(Properties properties) {
         super(properties);
 
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ENABLED, Boolean.TRUE));
     }
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
@@ -35,11 +39,11 @@ public class HeaterBlock extends AbstractCubezBlock {
     }
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new HeaterBlockEntity(pos, state);
+        return new SplitterBlockEntity(pos, state);
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING, ENABLED);
     }
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -53,18 +57,16 @@ public class HeaterBlock extends AbstractCubezBlock {
             return null;
         }
 
-        return createTickerHelper(blockEntityType, ModBlockEntities.HEATER_BE.get(),
-                (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState));
+        return createTickerHelper(blockEntityType, ModBlockEntities.SPLITTER_BE.get(),
+                (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState, blockEntity));
     }
 
-    @Override
     protected void sayMachineInfo(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, BlockEntity blockEntity) {
         super.sayMachineInfo(state, level, pos, player, hitResult, blockEntity);
 
-        HeaterBlockEntity heaterBlockEntity = (HeaterBlockEntity) blockEntity;
+        SplitterBlockEntity splitterBlockEntity = (SplitterBlockEntity) blockEntity;
 
         sayMachineInfoLine(player, "Processor", state.getBlock().getDescriptionId());
-        sayMachineInfoLine(player, "Fuel", heaterBlockEntity.FUEL.getStackInSlot(0));
-        sayMachineInfoLine(player, "Heat", String.valueOf((heaterBlockEntity.HEAT.getHeat())));
+        sayMachineInfoLine(player, "Inventory", splitterBlockEntity.INV.getStackInSlot(0));
     }
 }

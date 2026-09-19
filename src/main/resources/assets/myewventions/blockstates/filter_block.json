@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "myewventions:block/filter_block"
+    },
+    "facing=east": {
+      "model": "myewventions:block/filter_block",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "myewventions:block/filter_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "myewventions:block/filter_block",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "myewventions:block/filter_block",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "myewventions:block/filter_block",
+      "x": 90
+    }
+  }
+}

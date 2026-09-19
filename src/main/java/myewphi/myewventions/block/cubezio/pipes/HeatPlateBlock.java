@@ -1,9 +1,9 @@
-package myewphi.myewventions.block.cubezio;
+package myewphi.myewventions.block.cubezio.pipes;
 
 import com.mojang.serialization.MapCodec;
-import myewphi.myewventions.Myewventions;
+import myewphi.myewventions.block.cubezio.AbstractCubezBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
-import myewphi.myewventions.blockentity.cubezio.HeatPlateBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.pipes.HeatPlateBlockEntity;
 import myewphi.myewventions.capability.IHeatHandler;
 import myewphi.myewventions.capability.ModCapabilities;
 import net.minecraft.core.BlockPos;
@@ -27,7 +27,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class HeatPlateBlock extends AbstractCubezBlock{
+public class HeatPlateBlock extends AbstractCubezBlock {
     public static final MapCodec<HeatPlateBlock> CODEC = simpleCodec(HeatPlateBlock::new);
 
     private static final VoxelShape NORTH_BOX = Block.box(4, 4, 0, 12, 12, 4);

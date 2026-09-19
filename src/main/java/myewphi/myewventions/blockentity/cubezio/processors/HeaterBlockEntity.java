@@ -1,7 +1,8 @@
-package myewphi.myewventions.blockentity.cubezio;
+package myewphi.myewventions.blockentity.cubezio.processors;
 
-import myewphi.myewventions.block.cubezio.OvenBlock;
+import myewphi.myewventions.block.cubezio.processors.OvenBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.AbstractCubezBlockEntity;
 import myewphi.myewventions.capability.HeatHandler;
 import myewphi.myewventions.capability.IHeatHandler;
 import myewphi.myewventions.recipe.*;

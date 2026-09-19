@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "myewventions:heat_pipe"
+          "name": "myewventions:extractor_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "myewventions:blocks/heat_pipe"
+  "random_sequence": "myewventions:blocks/extractor_block"
 }

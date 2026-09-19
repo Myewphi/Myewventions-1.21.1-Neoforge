@@ -1,10 +1,10 @@
-package myewphi.myewventions.block.cubezio;
+package myewphi.myewventions.block.cubezio.pipes;
 
 import com.mojang.serialization.MapCodec;
-import myewphi.myewventions.Myewventions;
+import myewphi.myewventions.block.cubezio.AbstractCubezBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
-import myewphi.myewventions.blockentity.cubezio.ExtractorBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.ItemPipeBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.logistics.ExtractorBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.pipes.ItemPipeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;

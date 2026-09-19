@@ -1,9 +1,16 @@
 package myewphi.myewventions;
 
-import myewphi.myewventions.blockentity.cubezio.*;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
+import myewphi.myewventions.blockentity.cubezio.logistics.ExtractorBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.logistics.FilterBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.logistics.MergerBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.logistics.SplitterBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.pipes.HeatPlateBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.pipes.ItemPipeBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.processors.HeaterBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.processors.OvenBlockEntity;
 import myewphi.myewventions.capability.ModCapabilities;
 import myewphi.myewventions.item.ModItems;
 import myewphi.myewventions.recipe.ModRecipes;
@@ -84,6 +91,14 @@ public class Myewventions {
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.SPLITTER_BE.get(),
                 SplitterBlockEntity::getItemHandler);
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.MERGER_BE.get(),
+                MergerBlockEntity::getItemHandler);
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.FILTER_BE.get(),
+                FilterBlockEntity::getItemHandler);
 
         //Heat
         event.registerBlockEntity(

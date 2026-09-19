@@ -1,9 +1,9 @@
-package myewphi.myewventions.block.cubezio;
+package myewphi.myewventions.block.cubezio.processors;
 
 import com.mojang.serialization.MapCodec;
+import myewphi.myewventions.block.cubezio.AbstractCubezBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
-import myewphi.myewventions.blockentity.cubezio.HeaterBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.OvenBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.processors.OvenBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;

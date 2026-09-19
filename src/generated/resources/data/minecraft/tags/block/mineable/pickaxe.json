@@ -4,8 +4,11 @@
     "myewventions:heater_block",
     "myewventions:oven_block",
     "myewventions:item_pipe",
-    "myewventions:heat_pipe",
+    "myewventions:heat_plate",
+    "myewventions:extractor_block",
+    "myewventions:filter_block",
     "myewventions:splitter_block",
+    "myewventions:merger_block",
     "myewventions:silver_block",
     "myewventions:ancient_stone"
   ]

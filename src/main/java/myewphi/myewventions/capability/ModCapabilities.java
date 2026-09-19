@@ -12,6 +12,10 @@ public class ModCapabilities {
         private HeatHandler(){}
     }
 
+    public static final class LiquidHandler{
+
+    }
+
 
     private static ResourceLocation create(String path) {
         return ResourceLocation.fromNamespaceAndPath("neoforge", path);

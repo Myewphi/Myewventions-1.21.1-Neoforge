@@ -1,8 +1,8 @@
-package myewphi.myewventions.blockentity.cubezio;
+package myewphi.myewventions.blockentity.cubezio.pipes;
 
-import myewphi.myewventions.Myewventions;
-import myewphi.myewventions.block.cubezio.ItemPipeBlock;
+import myewphi.myewventions.block.cubezio.pipes.ItemPipeBlock;
 import myewphi.myewventions.blockentity.ModBlockEntities;
+import myewphi.myewventions.blockentity.cubezio.AbstractCubezBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;

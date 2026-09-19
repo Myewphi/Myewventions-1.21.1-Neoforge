@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "myewventions:block/logistics_blank",
+    "east": "myewventions:block/logistics_solid_input",
+    "north": "myewventions:block/logistics_solid_input",
+    "particle": "myewventions:block/logistics_blank",
+    "south": "myewventions:block/logistics_solid_output",
+    "up": "myewventions:block/logistics_blank",
+    "west": "myewventions:block/logistics_solid_input"
+  }
+}

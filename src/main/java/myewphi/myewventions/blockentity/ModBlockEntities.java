@@ -2,7 +2,14 @@ package myewphi.myewventions.blockentity;
 
 import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.ModBlocks;
-import myewphi.myewventions.blockentity.cubezio.*;
+import myewphi.myewventions.blockentity.cubezio.logistics.ExtractorBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.logistics.FilterBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.logistics.MergerBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.logistics.SplitterBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.pipes.HeatPlateBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.pipes.ItemPipeBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.processors.HeaterBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.processors.OvenBlockEntity;
 import myewphi.myewventions.blockentity.misc.PedestalBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -40,9 +47,17 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("splitter_be", () -> BlockEntityType.Builder.of(
                     SplitterBlockEntity::new, ModBlocks.SPLITTER_BLOCK.get()).build(null));
 
+    public static final Supplier<BlockEntityType<MergerBlockEntity>> MERGER_BE =
+            BLOCK_ENTITIES.register("merger_be", () -> BlockEntityType.Builder.of(
+                    MergerBlockEntity::new, ModBlocks.MERGER_BLOCK.get()).build(null));
+
     public static final Supplier<BlockEntityType<ExtractorBlockEntity>> EXTRACTOR_BE =
             BLOCK_ENTITIES.register("extractor_be", () -> BlockEntityType.Builder.of(
                     ExtractorBlockEntity::new, ModBlocks.EXTRACTOR_BLOCK.get()).build(null));
+
+    public static final Supplier<BlockEntityType<FilterBlockEntity>> FILTER_BE =
+            BLOCK_ENTITIES.register("filter_be", () -> BlockEntityType.Builder.of(
+                    FilterBlockEntity::new, ModBlocks.FILTER_BLOCK.get()).build(null));
 
 
 
