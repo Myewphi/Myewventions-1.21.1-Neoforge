@@ -3,6 +3,8 @@ package myewphi.myewventions.blockentity.cubezio;
 import com.ibm.icu.util.LocaleMatcher;
 import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.capability.IHeatHandler;
+import myewphi.myewventions.capability.LiquidHandler;
+import myewphi.myewventions.capability.ModCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -12,6 +14,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
@@ -86,6 +90,60 @@ public abstract class AbstractCubezBlockEntity extends BlockEntity {
         return -1;
     }
 
+    public static boolean tryPushLiquid(Level level, BlockPos pos, IFluidHandler inv, int amount, IFluidHandler outputFluidHandler){
+        //is IFluidHandler null?
+        if(inv == null){
+            return false;
+        }
+
+        //does output fluid handler have a tank
+        if (outputFluidHandler.getTanks() <= 0) {
+            return false;
+        }
+
+        //do fluids match || is target empty
+        if(!outputFluidHandler.getFluidInTank(0).isEmpty()){
+            if(!inv.getFluidInTank(0).getFluidType().equals(outputFluidHandler.getFluidInTank(0).getFluidType())){
+                return false;
+            }
+        }
+
+        //try and push
+        //first; extract stack from INV
+        FluidStack stack = inv.drain(amount, IFluidHandler.FluidAction.EXECUTE);
+
+        //second; insert amount into output
+        stack.shrink(outputFluidHandler.fill(stack, IFluidHandler.FluidAction.EXECUTE));
+
+        //finally; insert any remainder back into INV and start cooldown
+        inv.fill(stack, IFluidHandler.FluidAction.EXECUTE);
+        return true;
+    }
+    public static boolean tryPushLiquid(Level level, BlockPos pos, IFluidHandler inv, int amount, Direction outputDir){
+        //does output block have an IFluidHandler?
+        IFluidHandler outputFluidHandler = level.getCapability(Capabilities.FluidHandler.BLOCK, pos.relative(outputDir), outputDir.getOpposite());
+        if(outputFluidHandler == null){
+            return false;
+        }
+
+        return tryPushLiquid(level, pos, inv, amount, outputFluidHandler);
+    }
+    public static void updatePressure(Level level, BlockPos pos, LiquidHandler inv){
+        int pressure = 0;
+        for(Direction dir : Direction.values()){
+            IFluidHandler fluidHandler = level.getCapability(Capabilities.FluidHandler.BLOCK, pos.relative(dir), dir.getOpposite());
+
+            if(fluidHandler instanceof LiquidHandler){
+                pressure = Math.max(pressure, ((LiquidHandler) fluidHandler).getPressure() - 1000);
+            }
+        }
+
+        inv.setPressure(pressure);
+    }
+    public static void updatePressureDirectional(Level level, BlockPos pos, LiquidHandler inv, Direction dir){
+
+    }
+
     public abstract void dropAllContents(Level level, BlockPos pos);
     protected void dropContents(Level level, BlockPos pos, ItemStackHandler stackHandler){
         for(int i = 0; i < stackHandler.getSlots(); i++){
@@ -106,6 +164,9 @@ public abstract class AbstractCubezBlockEntity extends BlockEntity {
         return null;
     }
     public IHeatHandler getHeatHandler(@Nullable Direction side) {
+        return null;
+    }
+    public IFluidHandler getFluidHandler(@Nullable Direction side) {
         return null;
     }
 

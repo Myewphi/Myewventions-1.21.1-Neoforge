@@ -22,7 +22,7 @@
 	],
 	"display": {
 		"gui": {
-			"rotation": [20, 20, 0]
+			"rotation": [30, 45, 0]
 		}
 	}
 }

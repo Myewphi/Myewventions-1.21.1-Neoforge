@@ -1,0 +1,36 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "myewventions:block/stardust_1_ne"
+      },
+      "when": {
+        "necorner": 1
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/stardust_1_nw"
+      },
+      "when": {
+        "nwcorner": 1
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/stardust_1_se"
+      },
+      "when": {
+        "secorner": 1
+      }
+    },
+    {
+      "apply": {
+        "model": "myewventions:block/stardust_1_sw"
+      },
+      "when": {
+        "swcorner": 1
+      }
+    }
+  ]
+}

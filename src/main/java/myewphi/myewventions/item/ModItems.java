@@ -14,6 +14,8 @@ public class ModItems {
     public static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(Myewventions.MOD_ID);
 
+    public static final DeferredItem<Item> STARDUST = ITEMS.register("stardust",
+            () -> new StardustItem(new Item.Properties()));
     public static final DeferredItem<Item> SILVER_INGOT = ITEMS.register("silver_ingot",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> HUNGRY_FLESH_SWORD = ITEMS.register("hungry_flesh_sword",
@@ -24,6 +26,8 @@ public class ModItems {
             () -> new FossilForkItem(new Item.Properties()));
     public static final DeferredItem<Item> CHISEL = ITEMS.register("chisel",
             () -> new ChiselItem(new Item.Properties()));
+    public static final DeferredItem<Item> DEATH_TIME_STICK = ITEMS.register("death_time_stick",
+            () -> new DeathTimeStickItem(new Item.Properties()));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

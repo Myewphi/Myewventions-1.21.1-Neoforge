@@ -24,14 +24,18 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        dropSelf(ModBlocks.STARDUST_BLOCK.get());
+
         dropSelf(ModBlocks.PEDESTAL_BLOCK.get());
 
         dropSelf(ModBlocks.HEATER_BLOCK.get());
         dropSelf(ModBlocks.OVEN_BLOCK.get());
         dropSelf(ModBlocks.ITEM_PIPE.get());
         dropSelf(ModBlocks.HEAT_PLATE.get());
+        dropSelf(ModBlocks.FLUID_PIPE.get());
         dropSelf(ModBlocks.EXTRACTOR_BLOCK.get());
         dropSelf(ModBlocks.FILTER_BLOCK.get());
+        dropSelf(ModBlocks.PUMP_BLOCK.get());
         dropSelf(ModBlocks.SPLITTER_BLOCK.get());
         dropSelf(ModBlocks.MERGER_BLOCK.get());
 

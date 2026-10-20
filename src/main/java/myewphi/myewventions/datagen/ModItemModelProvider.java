@@ -18,6 +18,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        basicItem(ModItems.STARDUST.get());
         basicItem(ModItems.SILVER_INGOT.get());
         basicItem(BuiltInRegistries.BLOCK.getKey(ModBlocks.TOOTHY_SPIKES.get()));
 
@@ -25,5 +26,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         handheldItem(ModItems.FOSSIL_PLACER.get());
         handheldItem(ModItems.FOSSIL_FORK.get());
         handheldItem(ModItems.CHISEL.get());
+        handheldItem(ModItems.DEATH_TIME_STICK.get());
     }
 }

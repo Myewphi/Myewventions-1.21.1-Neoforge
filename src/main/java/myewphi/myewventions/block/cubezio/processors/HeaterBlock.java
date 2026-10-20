@@ -1,6 +1,7 @@
 package myewphi.myewventions.block.cubezio.processors;
 
 import com.mojang.serialization.MapCodec;
+import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.cubezio.AbstractCubezBlock;
 import myewphi.myewventions.blockentity.cubezio.processors.HeaterBlockEntity;
 import myewphi.myewventions.blockentity.ModBlockEntities;
@@ -44,6 +45,11 @@ public class HeaterBlock extends AbstractCubezBlock {
     }
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        if(!context.getLevel().isClientSide()){
+            Myewventions.LOGGER.info("SERVER");
+        } else {
+            Myewventions.LOGGER.info("CLIENT");
+        }
         return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 

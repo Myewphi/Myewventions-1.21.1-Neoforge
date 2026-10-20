@@ -25,9 +25,11 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.EXTRACTOR_BLOCK);
                         output.accept(ModBlocks.FILTER_BLOCK);
                         output.accept(ModBlocks.SPLITTER_BLOCK);
+                        output.accept(ModBlocks.PUMP_BLOCK);
                         output.accept(ModBlocks.MERGER_BLOCK);
                         output.accept(ModBlocks.ITEM_PIPE);
                         output.accept(ModBlocks.HEAT_PLATE);
+                        output.accept(ModBlocks.FLUID_PIPE);
 
                         output.accept(ModItems.SILVER_INGOT);
                         output.accept(ModBlocks.SILVER_BLOCK);

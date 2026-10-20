@@ -2,10 +2,8 @@ package myewphi.myewventions.blockentity;
 
 import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.ModBlocks;
-import myewphi.myewventions.blockentity.cubezio.logistics.ExtractorBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.logistics.FilterBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.logistics.MergerBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.logistics.SplitterBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.logistics.*;
+import myewphi.myewventions.blockentity.cubezio.pipes.FluidPipeBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.pipes.HeatPlateBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.pipes.ItemPipeBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.processors.HeaterBlockEntity;
@@ -43,6 +41,10 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("heat_plate_be", () -> BlockEntityType.Builder.of(
                     HeatPlateBlockEntity::new, ModBlocks.HEAT_PLATE.get()).build(null));
 
+    public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> FLUID_PIPE_BE =
+            BLOCK_ENTITIES.register("fluid_pipe_be", () -> BlockEntityType.Builder.of(
+                    FluidPipeBlockEntity::new, ModBlocks.FLUID_PIPE.get()).build(null));
+
     public static final Supplier<BlockEntityType<SplitterBlockEntity>> SPLITTER_BE =
             BLOCK_ENTITIES.register("splitter_be", () -> BlockEntityType.Builder.of(
                     SplitterBlockEntity::new, ModBlocks.SPLITTER_BLOCK.get()).build(null));
@@ -58,6 +60,10 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<FilterBlockEntity>> FILTER_BE =
             BLOCK_ENTITIES.register("filter_be", () -> BlockEntityType.Builder.of(
                     FilterBlockEntity::new, ModBlocks.FILTER_BLOCK.get()).build(null));
+
+    public static final Supplier<BlockEntityType<PumpBlockEntity>> PUMP_BE =
+            BLOCK_ENTITIES.register("pump_be", () -> BlockEntityType.Builder.of(
+                    PumpBlockEntity::new, ModBlocks.PUMP_BLOCK.get()).build(null));
 
 
 

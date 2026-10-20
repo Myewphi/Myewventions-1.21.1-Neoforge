@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 
 public abstract class AbstractCubezBlock extends BaseEntityBlock {
@@ -70,6 +71,19 @@ public abstract class AbstractCubezBlock extends BaseEntityBlock {
                     Component.translatable(title + ": ").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true))
                             .append(Component.translatable(stack.getDescriptionId()).setStyle(Style.EMPTY.withColor(0xffffff).withBold(false)))
                                     .append(Component.literal(" x" + stack.getCount()).setStyle(Style.EMPTY.withColor(0xffffff).withBold(false))));
+        }
+    }
+    protected void sayMachineInfoLine(Player player, String title, FluidStack stack){
+        if(stack.isEmpty()){
+            player.sendSystemMessage(
+                    Component.translatable(title + ": ").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true))
+                            .append(Component.literal("Empty").setStyle(Style.EMPTY.withColor(0xffffff).withBold(false))));
+        }
+        else {
+            player.sendSystemMessage(
+                    Component.translatable(title + ": ").setStyle(Style.EMPTY.withColor(0xfffc00).withBold(true))
+                            .append(Component.translatable(stack.getDescriptionId()).setStyle(Style.EMPTY.withColor(0xffffff).withBold(false)))
+                            .append(Component.literal(" x" + stack.getAmount()).setStyle(Style.EMPTY.withColor(0xffffff).withBold(false))));
         }
     }
     protected void sayMachineInfoDivider(Player player){

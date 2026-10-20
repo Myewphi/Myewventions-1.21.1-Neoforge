@@ -5,15 +5,18 @@
   "item.myewventions.fossil_placer": "Fossil Placer",
   "item.myewventions.fossil_fork": "Fossil Fork",
   "item.myewventions.chisel": "Chisel",
+  "item.myewventions.death_time_stick": "Death Time Stick",
 
   "block.myewventions.item_pipe": "Item Pipe",
   "block.myewventions.heat_plate": "Heat Plates",
+  "block.myewventions.fluid_pipe": "Fluid Pipe",
   "block.myewventions.heater_block": "Heater",
   "block.myewventions.oven_block": "Oven",
   "block.myewventions.extractor_block": "Extractor",
   "block.myewventions.filter_block": "Filter",
   "block.myewventions.splitter_block": "Splitter",
   "block.myewventions.merger_block": "Merger",
+  "block.myewventions.pump_block": "Pump",
 
   "block.myewventions.silver_block": "Silver Block",
   "block.myewventions.flesh_geode_core": "Flesh Geode Embryo",

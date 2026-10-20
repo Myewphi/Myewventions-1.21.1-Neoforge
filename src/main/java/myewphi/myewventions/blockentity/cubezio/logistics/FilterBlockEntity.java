@@ -68,7 +68,7 @@ public class FilterBlockEntity extends AbstractCubezBlockEntity {
 
         assert level != null;
         BlockState state = level.getBlockState(worldPosition);
-        if (side.equals(state.getValue(OvenBlock.FACING)) || side.equals(state.getValue(OvenBlock.FACING).getOpposite())) {
+        if (side.equals(state.getValue(HorizontalDirectionalBlock.FACING)) || side.equals(state.getValue(HorizontalDirectionalBlock.FACING).getOpposite())) {
             return INV;
         }
         if(side.equals(Direction.UP)){

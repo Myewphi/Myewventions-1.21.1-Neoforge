@@ -2,6 +2,7 @@ package myewphi.myewventions.block;
 
 import myewphi.myewventions.Myewventions;
 import myewphi.myewventions.block.cubezio.logistics.*;
+import myewphi.myewventions.block.cubezio.pipes.FluidPipeBlock;
 import myewphi.myewventions.block.cubezio.pipes.HeatPlateBlock;
 import myewphi.myewventions.block.cubezio.pipes.ItemPipeBlock;
 import myewphi.myewventions.block.cubezio.processors.HeaterBlock;
@@ -9,11 +10,14 @@ import myewphi.myewventions.block.cubezio.processors.OvenBlock;
 import myewphi.myewventions.block.fleshgeode.*;
 import myewphi.myewventions.block.misc.*;
 import myewphi.myewventions.item.ModItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -23,6 +27,9 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(Myewventions.MOD_ID);
+
+    public static final DeferredBlock<Block> STARDUST_BLOCK = registerBlockWithoutItem("stardust_block",
+            () -> new StardustBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_WIRE).emissiveRendering(ModBlocks::always).hasPostProcess(ModBlocks::always)));
 
     public static final DeferredBlock<Block> PEDESTAL_BLOCK = registerBlock("pedestal_block",
             () -> new PedestalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
@@ -35,6 +42,8 @@ public class ModBlocks {
             () -> new ItemPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion(), 1));
     public static final DeferredBlock<Block> HEAT_PLATE = registerBlock("heat_plate",
             () -> new HeatPlateBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
+    public static final DeferredBlock<Block> FLUID_PIPE = registerBlock("fluid_pipe",
+            () -> new FluidPipeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
     public static final DeferredBlock<Block> EXTRACTOR_BLOCK = registerBlock("extractor_block",
             () -> new ExtractorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
     public static final DeferredBlock<Block> SPLITTER_BLOCK = registerBlock("splitter_block",
@@ -43,6 +52,8 @@ public class ModBlocks {
             () -> new MergerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
     public static final DeferredBlock<Block> FILTER_BLOCK = registerBlock("filter_block",
             () -> new FilterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
+    public static final DeferredBlock<Block> PUMP_BLOCK = registerBlock("pump_block",
+            () -> new PumpBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noOcclusion()));
 
     public static final DeferredBlock<Block> SILVER_BLOCK = registerBlock("silver_block",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
@@ -70,6 +81,10 @@ public class ModBlocks {
         registerBlockItem(name, toReturn);
         return toReturn;
     }
+    private static <T extends Block> DeferredBlock<T> registerBlockWithoutItem(String name, Supplier<T> block) {
+        DeferredBlock<T> toReturn = BLOCKS.register(name, block);
+        return toReturn;
+    }
 
     private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block){
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
@@ -77,5 +92,9 @@ public class ModBlocks {
 
     public static void register(IEventBus eventBus){
         BLOCKS.register(eventBus);
+    }
+
+    private static boolean always(BlockState state, BlockGetter blockGetter, BlockPos pos) {
+        return true;
     }
 }

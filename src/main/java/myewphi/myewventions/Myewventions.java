@@ -3,10 +3,8 @@ package myewphi.myewventions;
 import myewphi.myewventions.blockentity.ModBlockEntities;
 import myewphi.myewventions.block.fleshgeode.FleshGeodeMeatBlock;
 import myewphi.myewventions.block.ModBlocks;
-import myewphi.myewventions.blockentity.cubezio.logistics.ExtractorBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.logistics.FilterBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.logistics.MergerBlockEntity;
-import myewphi.myewventions.blockentity.cubezio.logistics.SplitterBlockEntity;
+import myewphi.myewventions.blockentity.cubezio.logistics.*;
+import myewphi.myewventions.blockentity.cubezio.pipes.FluidPipeBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.pipes.HeatPlateBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.pipes.ItemPipeBlockEntity;
 import myewphi.myewventions.blockentity.cubezio.processors.HeaterBlockEntity;
@@ -14,14 +12,19 @@ import myewphi.myewventions.blockentity.cubezio.processors.OvenBlockEntity;
 import myewphi.myewventions.capability.ModCapabilities;
 import myewphi.myewventions.item.ModItems;
 import myewphi.myewventions.recipe.ModRecipes;
+import myewphi.myewventions.worldgen.ModBiomeSources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -61,6 +64,7 @@ public class Myewventions {
         ModBlockEntities.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModRecipes.register(modEventBus);
+        ModBiomeSources.register(modEventBus);
 
         modEventBus.addListener(this::onRegisterCapabilities);
 
@@ -113,6 +117,16 @@ public class Myewventions {
                 ModCapabilities.HeatHandler.BLOCK,
                 ModBlockEntities.OVEN_BE.get(),
                 OvenBlockEntity::getHeatHandler);
+
+        //Liquid
+        event.registerBlockEntity(
+                Capabilities.FluidHandler.BLOCK,
+                ModBlockEntities.FLUID_PIPE_BE.get(),
+                FluidPipeBlockEntity::getFluidHandler);
+        event.registerBlockEntity(
+                Capabilities.FluidHandler.BLOCK,
+                ModBlockEntities.PUMP_BE.get(),
+                PumpBlockEntity::getFluidHandler);
     }
 
     @SubscribeEvent
@@ -132,6 +146,33 @@ public class Myewventions {
                 BlockPos pos =  Myewtilities.getRandomListElement(nearbyMeat);
                 ((FleshGeodeMeatBlock) level.getBlockState(pos).getBlock()).feedFleshGeodeBlock(deathEvent, pos);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onDeath(LivingDeathEvent deathEvent){
+        if(deathEvent.getEntity() instanceof Player player){
+            player.sendSystemMessage(Component.literal("Here Lies"));
+            player.sendSystemMessage(Component.literal(player.getGameProfile().getName()));
+
+            long deathTime = ((ServerPlayer)player).getStats().getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_DEATH));
+            long dayTime = Minecraft.getInstance().level.getDayTime();
+
+            float spawnDate = (dayTime - deathTime) / 24000f;
+            float deathDate = dayTime / 24000f;
+            String format = "%.0f";
+
+//            if(deathDate - spawnDate < 1){
+//                format = "%.1f";
+//                if(deathDate - spawnDate < 0.1){
+//                    format = "%.2f";
+//                }
+//            }
+
+            //player.sendSystemMessage(Component.literal("Day " + String.format(format, spawnDate) + " - Day " + String.format(format, deathDate)));
+            player.sendSystemMessage(Component.literal("Died on Day " + dayTime / 24000L));
+            player.sendSystemMessage(Component.literal("After surviving for " + deathTime / 72000L + " hours"));
+
         }
     }
 
