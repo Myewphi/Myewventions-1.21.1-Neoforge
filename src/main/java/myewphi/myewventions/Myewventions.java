@@ -29,6 +29,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.CalculatePlayerTurnEvent;
+import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import org.slf4j.Logger;
 
@@ -148,7 +150,6 @@ public class Myewventions {
             }
         }
     }
-
     @SubscribeEvent
     public void onDeath(LivingDeathEvent deathEvent){
         if(deathEvent.getEntity() instanceof Player player){
@@ -175,6 +176,7 @@ public class Myewventions {
 
         }
     }
+
 
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code

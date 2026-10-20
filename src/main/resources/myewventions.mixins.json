@@ -2,7 +2,10 @@
   "required": true,
   "package": "myewphi.myewventions.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "CameraMixin",
+    "EntityMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },
