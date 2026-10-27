@@ -24,13 +24,13 @@ public abstract class CameraMixin {
     @Inject(method = "setup", at = @At("TAIL"))
     private void addMessage(BlockGetter level, Entity entity, boolean detached, boolean thirdPersonReverse, float partialTick, CallbackInfo ci) {
         if(detached){
-            float zoom = 10;
+            float zoom = 12;
 
             this.setRotation(45, 65, 0);
             this.setPosition(
-                    Mth.lerp(partialTick, entity.xo, entity.getX()) + (zoom * 0.4f),
+                    Mth.lerp(partialTick, entity.xo, entity.getX()) + (zoom * 0.35f),
                     Mth.lerp(partialTick, entity.yo, entity.getY()) + (double)Mth.lerp(partialTick, this.eyeHeightOld, this.eyeHeight) + zoom,
-                    Mth.lerp(partialTick, entity.zo, entity.getZ()) - (zoom * 0.4f)
+                    Mth.lerp(partialTick, entity.zo, entity.getZ()) - (zoom * 0.35f)
             );
         }
     }
